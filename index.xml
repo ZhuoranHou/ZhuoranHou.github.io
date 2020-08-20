@@ -5,12 +5,22 @@
     <link>https://ZhuoranHou.github.io/</link>
       <atom:link href="https://ZhuoranHou.github.io/index.xml" rel="self" type="application/rss+xml" />
     <description>Zhuoran Hou</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 20 Aug 2020 17:05:40 -0400</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 20 Aug 2020 17:28:41 -0400</lastBuildDate>
     <image>
       <url>https://ZhuoranHou.github.io/images/icon_hu6b1daddad367c9d793e5607d0ae1cd4a_68195_512x512_fill_lanczos_center_2.png</url>
       <title>Zhuoran Hou</title>
       <link>https://ZhuoranHou.github.io/</link>
     </image>
+    
+    <item>
+      <title>How to build a personal website using Github and Hugo</title>
+      <link>https://ZhuoranHou.github.io/post/how-to-build-personal-website/</link>
+      <pubDate>Thu, 20 Aug 2020 17:28:41 -0400</pubDate>
+      <guid>https://ZhuoranHou.github.io/post/how-to-build-personal-website/</guid>
+      <description>&lt;p&gt;dafdsfadsfads&lt;/p&gt;
+&lt;p&gt;adfadsf&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Personal website</title>
