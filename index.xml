@@ -30,7 +30,7 @@
 &lt;h3 id=&#34;4choose-a-theme&#34;&gt;4.Choose a theme.&lt;/h3&gt;
 &lt;p&gt;After the previous step, I started to choose a theme for my personal page on 
 &lt;a href=&#34;https://themes.gohugo.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hugo Themes&lt;/a&gt; website.  I chose the &lt;strong&gt;Academic&lt;/strong&gt; theme, which provide many very sophisticated website templates and detailed tutorials[3]. I followed the 
-&lt;a href=&#34;https://sourcethemes.com/academic/docs/install-locally/#install-with-git&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;tutorial&lt;/a&gt; and used the following commands to overwrite the files in the &lt;em&gt;personal_website&lt;/em&gt; folder. By doing this, I cloned the template 
+&lt;a href=&#34;https://sourcethemes.com/academic/docs/install-locally/#install-with-git&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;tutorial&lt;/a&gt; and used the following commands to overwrite the files in the &lt;em&gt;personal_website&lt;/em&gt; folder (I had to confess that I made a mistake here since I forgot to fork the repository first, and when I found it I almost finished the website). By doing this, I cloned the template 
 &lt;a href=&#34;https://github.com/sourcethemes/academic-kickstart&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;academic-kickstart&lt;/a&gt; to my local PC:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;$ git clone https://github.com/sourcethemes/academic-kickstart.git
 $ git submodule update --init --recursive
