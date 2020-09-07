@@ -25,11 +25,13 @@
       <link>https://ZhuoranHou.github.io/post/project_euler/</link>
       <pubDate>Fri, 04 Sep 2020 09:56:49 -0400</pubDate>
       <guid>https://ZhuoranHou.github.io/post/project_euler/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;1.Problem 5 Smallest multiple&lt;/strong&gt;&lt;/p&gt;
+      <description>&lt;p&gt;&lt;strong&gt;I solved these question using Python. Here are these questions and my solutions.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.Problem 5 Smallest multiple&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder. What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Solved by 489287 (2020/09/03)&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Explanations &amp;amp; Answers:&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Since if this number can be evenly divisible by numbers from 11 to 20, it must can be evenly divisible by numbers from 11 to 20. So we only need to check 11-20.&lt;/p&gt;
+&lt;p&gt;I wrote two loops with a inside loop checking if the remainder equals to zero and a outside loop checking numbers in the given range. ”div“ is the value indicating the status of divisibility of the number. If  &amp;ldquo;div == 1&amp;rdquo; , then print the value.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def smallest_mul(n,a,b):
     &amp;quot;&amp;quot;&amp;quot;
     This function calculate the smallest positive number that is evenly divisible by all of the numbers from given interval
@@ -51,28 +53,35 @@
         if div == 0:
             print(x)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Two examples:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;smallest_mul(n=6000,a=1,b=10)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;2520&lt;/p&gt;
+&lt;p&gt;5040&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;smallest_mul(n=300000000,a=11,b=20)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;232792560&lt;/p&gt;
 &lt;p&gt;Thus, the answer to is question is &lt;strong&gt;232792560&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Problem 34 Digit factorials&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;145 is a curious number, as 1! + 4! + 5! = 1 + 24 + 120 = 145. Find the sum of all numbers which are equal to the sum of the factorial of their digits. Note: As 1! = 1 and 2! = 2 are not sums they are not included.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Solved by 92955 (2020/09/03)&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Explanations &amp;amp; Answers:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;We first try to find the searching range.&lt;/p&gt;
+&lt;p&gt;We first try to find the searching range of &amp;ldquo;curious number&amp;rdquo;.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import math
 math.factorial(9)*8
 math.factorial(9)*7
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;2903040&lt;/p&gt;
+&lt;p&gt;2540160&lt;/p&gt;
 &lt;p&gt;From the calculation above, we know that the numbers we search have at most 7 digits. For those have more digits, the sum of digit factorial will not be equal to the number itself.&lt;/p&gt;
+&lt;p&gt;Here is the function that calculate the sum digit factorial of a given number. I first extracted each digit ((num // 10**(n-1)) % 10) and sum all the digit factorials.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def digsum(num):
     &amp;quot;&amp;quot;&amp;quot;
     This function calculate the factorial sum of all digits of a number
 
     :param num: the input number
     
-    output: return the sum
+    output: return the sum of digit factorial
     
     &amp;quot;&amp;quot;&amp;quot;
     
@@ -82,12 +91,20 @@ math.factorial(9)*7
     
     return sumf
 &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;for x in range(3,10000000):
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;sumd = 0
+for x in range(3,10000000):
     if x == digsum(x):
         print(x)
+        sumd += digsum(x)
+
+print(f&amp;quot;The sum of all numbers which are equal to the sum of the factorial of their digits is {sumd}.&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;145&lt;/p&gt;
+&lt;p&gt;40585&lt;/p&gt;
+&lt;p&gt;The sum of all numbers which are equal to the sum of the factorial of their digits is 40730.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;digsum(145)+digsum(40585)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;40730&lt;/p&gt;
 &lt;p&gt;Thus, the answer to this question is &lt;strong&gt;40730&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Problem 112 Bouncy numbers&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Working from left-to-right if no digit is exceeded by the digit to its left it is called an increasing number; for example, 134468.&lt;/p&gt;
@@ -98,6 +115,7 @@ math.factorial(9)*7
 &lt;p&gt;Find the least number for which the proportion of bouncy numbers is exactly 99%.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Solved by 23655 (2020/09/03)&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Explanations &amp;amp; Answers:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;First, I wrote a function to check if the number given is a bouncy number. If it is a bouncy number, then return &amp;ldquo;True&amp;rdquo;, otherwise &amp;ldquo;False&amp;rdquo;.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def check_b(num):
     &amp;quot;&amp;quot;&amp;quot;
     This function is to check if the number is a bouncy number
@@ -107,7 +125,6 @@ math.factorial(9)*7
     output: return the boolean Values
     
     &amp;quot;&amp;quot;&amp;quot;
-    
     nums = [0]*len(str(num))
     sta1 = True
     sta2 = True
@@ -122,6 +139,7 @@ math.factorial(9)*7
 
     return not(sta1 | sta2)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then, I wrote a while loop to find least number for which the proportion of bouncy numbers is exactly 99%.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;l = 0
 x = 1
 
@@ -134,6 +152,7 @@ while True:
             
 print(x)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;1587000&lt;/p&gt;
 &lt;p&gt;Thus, the answer to this question is &lt;strong&gt;1587000&lt;/strong&gt;.&lt;/p&gt;
 </description>
     </item>

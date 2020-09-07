@@ -642,7 +642,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    3 min read
+    4 min read
   </span>
   
 
@@ -685,11 +685,13 @@
   <div class="article-container">
 
     <div class="article-style">
-      <p><strong>1.Problem 5 Smallest multiple</strong></p>
+      <p><strong>I solved these question using Python. Here are these questions and my solutions.</strong></p>
+<p><strong>1.Problem 5 Smallest multiple</strong></p>
 <p>2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder. What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?</p>
 <p><em><strong>Solved by 489287 (2020/09/03)</strong></em></p>
 <p><strong>Explanations &amp; Answers:</strong></p>
 <p>Since if this number can be evenly divisible by numbers from 11 to 20, it must can be evenly divisible by numbers from 11 to 20. So we only need to check 11-20.</p>
+<p>I wrote two loops with a inside loop checking if the remainder equals to zero and a outside loop checking numbers in the given range. ”div“ is the value indicating the status of divisibility of the number. If  &ldquo;div == 1&rdquo; , then print the value.</p>
 <pre><code class="language-python">def smallest_mul(n,a,b):
     &quot;&quot;&quot;
     This function calculate the smallest positive number that is evenly divisible by all of the numbers from given interval
@@ -711,28 +713,35 @@
         if div == 0:
             print(x)
 </code></pre>
+<p>Two examples:</p>
 <pre><code class="language-python">smallest_mul(n=6000,a=1,b=10)
 </code></pre>
+<p>2520</p>
+<p>5040</p>
 <pre><code class="language-python">smallest_mul(n=300000000,a=11,b=20)
 </code></pre>
+<p>232792560</p>
 <p>Thus, the answer to is question is <strong>232792560</strong>.</p>
 <p><strong>Problem 34 Digit factorials</strong></p>
 <p>145 is a curious number, as 1! + 4! + 5! = 1 + 24 + 120 = 145. Find the sum of all numbers which are equal to the sum of the factorial of their digits. Note: As 1! = 1 and 2! = 2 are not sums they are not included.</p>
 <p><em><strong>Solved by 92955 (2020/09/03)</strong></em></p>
 <p><strong>Explanations &amp; Answers:</strong></p>
-<p>We first try to find the searching range.</p>
+<p>We first try to find the searching range of &ldquo;curious number&rdquo;.</p>
 <pre><code class="language-python">import math
 math.factorial(9)*8
 math.factorial(9)*7
 </code></pre>
+<p>2903040</p>
+<p>2540160</p>
 <p>From the calculation above, we know that the numbers we search have at most 7 digits. For those have more digits, the sum of digit factorial will not be equal to the number itself.</p>
+<p>Here is the function that calculate the sum digit factorial of a given number. I first extracted each digit ((num // 10**(n-1)) % 10) and sum all the digit factorials.</p>
 <pre><code class="language-python">def digsum(num):
     &quot;&quot;&quot;
     This function calculate the factorial sum of all digits of a number
 
     :param num: the input number
     
-    output: return the sum
+    output: return the sum of digit factorial
     
     &quot;&quot;&quot;
     
@@ -742,12 +751,20 @@ math.factorial(9)*7
     
     return sumf
 </code></pre>
-<pre><code class="language-python">for x in range(3,10000000):
+<pre><code class="language-python">sumd = 0
+for x in range(3,10000000):
     if x == digsum(x):
         print(x)
+        sumd += digsum(x)
+
+print(f&quot;The sum of all numbers which are equal to the sum of the factorial of their digits is {sumd}.&quot;)
 </code></pre>
+<p>145</p>
+<p>40585</p>
+<p>The sum of all numbers which are equal to the sum of the factorial of their digits is 40730.</p>
 <pre><code class="language-python">digsum(145)+digsum(40585)
 </code></pre>
+<p>40730</p>
 <p>Thus, the answer to this question is <strong>40730</strong>.</p>
 <p><strong>Problem 112 Bouncy numbers</strong></p>
 <p>Working from left-to-right if no digit is exceeded by the digit to its left it is called an increasing number; for example, 134468.</p>
@@ -758,6 +775,7 @@ math.factorial(9)*7
 <p>Find the least number for which the proportion of bouncy numbers is exactly 99%.</p>
 <p><em><strong>Solved by 23655 (2020/09/03)</strong></em></p>
 <p><strong>Explanations &amp; Answers:</strong></p>
+<p>First, I wrote a function to check if the number given is a bouncy number. If it is a bouncy number, then return &ldquo;True&rdquo;, otherwise &ldquo;False&rdquo;.</p>
 <pre><code class="language-python">def check_b(num):
     &quot;&quot;&quot;
     This function is to check if the number is a bouncy number
@@ -767,7 +785,6 @@ math.factorial(9)*7
     output: return the boolean Values
     
     &quot;&quot;&quot;
-    
     nums = [0]*len(str(num))
     sta1 = True
     sta2 = True
@@ -782,6 +799,7 @@ math.factorial(9)*7
 
     return not(sta1 | sta2)
 </code></pre>
+<p>Then, I wrote a while loop to find least number for which the proportion of bouncy numbers is exactly 99%.</p>
 <pre><code class="language-python">l = 0
 x = 1
 
@@ -794,6 +812,7 @@ while True:
             
 print(x)
 </code></pre>
+<p>1587000</p>
 <p>Thus, the answer to this question is <strong>1587000</strong>.</p>
 
     </div>
@@ -808,6 +827,8 @@ print(x)
 <div class="article-tags">
   
   <a class="badge badge-light" href="/tag/project-euler/">Project Euler</a>
+  
+  <a class="badge badge-light" href="/tag/python/">Python</a>
   
 </div>
 
