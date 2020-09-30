@@ -3,37 +3,57 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://ZhuoranHou.github.io/project/</loc>
+    <lastmod>2020-09-30T10:02:58-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ZhuoranHou.github.io/project/spotify/</loc>
+    <lastmod>2020-09-30T10:02:58-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ZhuoranHou.github.io/</loc>
+    <lastmod>2020-09-30T10:02:58-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ZhuoranHou.github.io/post/spotify/</loc>
+    <lastmod>2020-09-30T10:02:37-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ZhuoranHou.github.io/post/</loc>
+    <lastmod>2020-09-30T10:02:37-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ZhuoranHou.github.io/tag/python/</loc>
+    <lastmod>2020-09-30T10:02:37-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ZhuoranHou.github.io/tag/sql/</loc>
+    <lastmod>2020-09-30T10:02:37-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ZhuoranHou.github.io/tag/sqllite3/</loc>
+    <lastmod>2020-09-30T10:02:37-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ZhuoranHou.github.io/tags/</loc>
+    <lastmod>2020-09-30T10:02:37-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://ZhuoranHou.github.io/project/malaria_visual/</loc>
     <lastmod>2020-09-29T22:09:52-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://ZhuoranHou.github.io/project/</loc>
-    <lastmod>2020-09-29T22:09:52-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ZhuoranHou.github.io/</loc>
-    <lastmod>2020-09-29T22:09:52-04:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://ZhuoranHou.github.io/post/malaria_dataset_visualizations/</loc>
-    <lastmod>2020-09-29T21:51:08-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ZhuoranHou.github.io/post/</loc>
-    <lastmod>2020-09-29T21:51:08-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ZhuoranHou.github.io/tag/python/</loc>
-    <lastmod>2020-09-29T21:51:08-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ZhuoranHou.github.io/tags/</loc>
     <lastmod>2020-09-29T21:51:08-04:00</lastmod>
   </url>
   

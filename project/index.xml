@@ -5,12 +5,20 @@
     <link>https://ZhuoranHou.github.io/project/</link>
       <atom:link href="https://ZhuoranHou.github.io/project/index.xml" rel="self" type="application/rss+xml" />
     <description>Projects</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 29 Sep 2020 22:09:52 -0400</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 30 Sep 2020 10:02:58 -0400</lastBuildDate>
     <image>
       <url>https://ZhuoranHou.github.io/images/icon_hu6b1daddad367c9d793e5607d0ae1cd4a_68195_512x512_fill_lanczos_center_2.png</url>
       <title>Projects</title>
       <link>https://ZhuoranHou.github.io/project/</link>
     </image>
+    
+    <item>
+      <title>Spotify dataset SQLite3 schema</title>
+      <link>https://ZhuoranHou.github.io/project/spotify/</link>
+      <pubDate>Wed, 30 Sep 2020 10:02:58 -0400</pubDate>
+      <guid>https://ZhuoranHou.github.io/project/spotify/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Malaria Datasets Visualizations</title>
