@@ -5,12 +5,20 @@
     <link>https://ZhuoranHou.github.io/project/</link>
       <atom:link href="https://ZhuoranHou.github.io/project/index.xml" rel="self" type="application/rss+xml" />
     <description>Projects</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 30 Sep 2020 20:58:11 -0400</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 05 Oct 2020 23:26:07 -0400</lastBuildDate>
     <image>
       <url>https://ZhuoranHou.github.io/images/icon_hu6b1daddad367c9d793e5607d0ae1cd4a_68195_512x512_fill_lanczos_center_2.png</url>
       <title>Projects</title>
       <link>https://ZhuoranHou.github.io/project/</link>
     </image>
+    
+    <item>
+      <title>Dashboard for PhDs dataset</title>
+      <link>https://ZhuoranHou.github.io/project/dashboard/</link>
+      <pubDate>Mon, 05 Oct 2020 23:26:07 -0400</pubDate>
+      <guid>https://ZhuoranHou.github.io/project/dashboard/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Star Wars universe API data analysis</title>
