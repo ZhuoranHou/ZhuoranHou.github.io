@@ -493,7 +493,7 @@ def update_figure(selected_year):
 
 app.run_server(mode=&#39;inline&#39;,debug=True)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;fig1.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;fig1.gif&#34; alt=&#34;gif&#34;&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;The Trend of number of doctorate recipients by sex from 1987 to 2017&lt;/li&gt;
 &lt;/ul&gt;
@@ -546,7 +546,7 @@ def update_graph(field, sex):
 
 app.run_server(mode=&#39;inline&#39;,debug=True)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;fig2.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;fig2.gif&#34; alt=&#34;gif&#34;&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Doctorate recipients by major field of study and their according sex and citizenship information summary&lt;/li&gt;
 &lt;/ul&gt;
@@ -661,7 +661,7 @@ def update_sex_prop(hoverData, year_value):
 
 app.run_server(mode=&#39;inline&#39;,debug=True)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;fig3.png&#34; alt=&#34;png&#34; style=&#34;zoom:200%;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;fig3.gif&#34; alt=&#34;gif&#34;&gt;&lt;/p&gt;
 </description>
     </item>
     
