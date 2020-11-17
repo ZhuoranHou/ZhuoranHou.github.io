@@ -685,7 +685,9 @@
   <div class="article-container">
 
     <div class="article-style">
-      <h3 id="project-goals">Project goals</h3>
+      <p>The data project of our group is a dashboard that provided updated COVID-19 information and presents model results.</p>
+<p>The target audience of  our dashboard is the general audience who want to know some COVID-19 information in US and what factors influence case growth rate. Thus, we added a lot of explanations in the dashboard using non-technical wording and omitted technical details of the model.</p>
+<h3 id="project-goals">Project goals</h3>
 <p>We first discussed the goals of our project and decided to finalize it when we had the data. After the data collection, here are the goals of the project:</p>
 <ul>
 <li>
@@ -735,7 +737,7 @@
 <p>In this part, we try to explore the effectiveness of policies of different states on controlling COVID-19 cases. After discussion, we chose four main policy: <strong>stay at home order, face mask mandatory, restaurant close and business close</strong>. We calculated the average increase rate of total cases on each state 7/15 days before and after the implementation date of the each policy. 7 days represents short term while 15 days represents long term.</p>
 <p>We also compare the state level increase rate and the increase rate of US to asses the performance of the state government.</p>
 <p><strong>2.Predict Covid19 Case Growth Rate</strong></p>
-<p>Since cases changes as time goes, we first considered LSTM (Long short-term memory) recurrent neural network (RNN) model and time series model, but the results were not good.  Then, we decided only to consider increase rate and several lags instead of new cases to denote the effect of time. After that, we used <strong>random forest</strong> models to train the data and made predictions.</p>
+<p>Since cases changes as time goes, we first considered LSTM (Long short-term memory) recurrent neural network (RNN) model and time series model, but the results were not good.  Then, we decided only to consider increase rate and added several lags in the model to denote the effect of time instead of predicting new cases. After that, we used <strong>random forest</strong> models to train the data and made predictions.</p>
 <p>There were two levels of analysis: US level and states level. For US level, we used <strong>hospital capacity data</strong> ( number of inpatient beds, number of ICU beds, etc.), <strong>state demographic information</strong> and <strong>policies</strong> to predict increase rate. For the state level, we only use hospital capacity data and policy data since state demographic information were <em>constants</em> for a specific state and would not change over time. We used data before July as training datasets and data after July as test datasets.</p>
 <p>The test RMSE (root mean square error) of US level is 0.0107, which is quite low. We also trained a random forest model for each state.</p>
 <p><strong>3.Individual Level Analysis</strong></p>
