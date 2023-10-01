@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dash | Zhuoran Hou</title>
+    <link>https://ZhuoranHou.github.io/tag/dash/</link>
+      <atom:link href="https://ZhuoranHou.github.io/tag/dash/index.xml" rel="self" type="application/rss+xml" />
+    <description>Dash</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 05 Oct 2020 23:25:50 -0400</lastBuildDate>
+    <image>
+      <url>https://ZhuoranHou.github.io/images/icon_hu6b1daddad367c9d793e5607d0ae1cd4a_68195_512x512_fill_lanczos_center_3.png</url>
+      <title>Dash</title>
+      <link>https://ZhuoranHou.github.io/tag/dash/</link>
+    </image>
+    
+    <item>
+      <title>Dashboard for PhDs dataset</title>
+      <link>https://ZhuoranHou.github.io/post/dashboard/</link>
+      <pubDate>Mon, 05 Oct 2020 23:25:50 -0400</pubDate>
+      <guid>https://ZhuoranHou.github.io/post/dashboard/</guid>
+      <description>&lt;p&gt;The task is to download data of PhDs awarded in the US. Do some analysis in pandas. Make a dashboard visualization of a few interesting aspects of the data using dash or streamlit.
+dataset: 
+&lt;a href=&#34;https://ncses.nsf.gov/pubs/nsf19301/data&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://ncses.nsf.gov/pubs/nsf19301/data&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;1-read-the-dataset-and-data-cleaning&#34;&gt;1. Read the dataset and data cleaning&lt;/h3&gt;
+&lt;p&gt;For this collection of datasets, I want to explore the number of doctorate recipients by major field of study, sex and citizenship in the selected years from 1987 to 2017. &lt;br&gt;
+Thus, I planed to explore table 14 and table 17.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import pandas as pd
+import numpy as np
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;--data-cleaning-for-table-14&#34;&gt;- Data cleaning for table 14&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df1 = pd.read_excel(&#39;D:\\3.Duke\\course\\Year_2\\semester_1\\2_Bios823\\HW\\HW6\\data_tables\\sed17-sr-tab014.xlsx&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Choose columnes that we are interested in.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df1 = df1.iloc[7:,[0,1,3,5,7,9,11,13]]   
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df1.columns = [&#39;Field of study and sex&#39;,&#39;1987&#39;,&#39;1992&#39;,&#39;1997&#39;,&#39;2002&#39;,&#39;2007&#39;,&#39;2012&#39;,&#39;2017&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df1[&#39;Field of study and sex&#39;][7] = &#39;Life sciences&#39;  ## rename some field names
+df1[&#39;Field of study and sex&#39;][28] = &#39;Other&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df1 = df1.reset_index().drop(columns=[&#39;index&#39;])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df1[&#39;Field of study&#39;] = df1.iloc[::3,0:1][&#39;Field of study and sex&#39;].repeat(repeats = 3).reset_index().drop(columns=[&#39;index&#39;])
+df1.head()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;Field of study and sex&lt;/th&gt;
+      &lt;th&gt;1987&lt;/th&gt;
+      &lt;th&gt;1992&lt;/th&gt;
+      &lt;th&gt;1997&lt;/th&gt;
+      &lt;th&gt;2002&lt;/th&gt;
+      &lt;th&gt;2007&lt;/th&gt;
+      &lt;th&gt;2012&lt;/th&gt;
+      &lt;th&gt;2017&lt;/th&gt;
+      &lt;th&gt;Field of study&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;Life sciences&lt;/td&gt;
+      &lt;td&gt;5783&lt;/td&gt;
+      &lt;td&gt;7141&lt;/td&gt;
+      &lt;td&gt;8365&lt;/td&gt;
+      &lt;td&gt;8465&lt;/td&gt;
+      &lt;td&gt;10694&lt;/td&gt;
+      &lt;td&gt;11949&lt;/td&gt;
+      &lt;td&gt;12587&lt;/td&gt;
+      &lt;td&gt;Life sciences&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Male&lt;/td&gt;
+      &lt;td&gt;3747&lt;/td&gt;
+      &lt;td&gt;4322&lt;/td&gt;
+      &lt;td&gt;4613&lt;/td&gt;
+      &lt;td&gt;4443&lt;/td&gt;
+      &lt;td&gt;5197&lt;/td&gt;
+      &lt;td&gt;5335&lt;/td&gt;
+      &lt;td&gt;5629&lt;/td&gt;
+      &lt;td&gt;Life sciences&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Female&lt;/td&gt;
+      &lt;td&gt;2036&lt;/td&gt;
+      &lt;td&gt;2819&lt;/td&gt;
+      &lt;td&gt;3752&lt;/td&gt;
+      &lt;td&gt;4022&lt;/td&gt;
+      &lt;td&gt;5497&lt;/td&gt;
+      &lt;td&gt;6614&lt;/td&gt;
+      &lt;td&gt;6958&lt;/td&gt;
+      &lt;td&gt;Life sciences&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;Physical sciences and earth sciences&lt;/td&gt;
+      &lt;td&gt;3811&lt;/td&gt;
+      &lt;td&gt;4486&lt;/td&gt;
+      &lt;td&gt;4522&lt;/td&gt;
+      &lt;td&gt;3871&lt;/td&gt;
+      &lt;td&gt;4955&lt;/td&gt;
+      &lt;td&gt;5414&lt;/td&gt;
+      &lt;td&gt;6079&lt;/td&gt;
+      &lt;td&gt;Physical sciences and earth sciences&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Male&lt;/td&gt;
+      &lt;td&gt;3177&lt;/td&gt;
+      &lt;td&gt;3545&lt;/td&gt;
+      &lt;td&gt;3489&lt;/td&gt;
+      &lt;td&gt;2812&lt;/td&gt;
+      &lt;td&gt;3447&lt;/td&gt;
+      &lt;td&gt;3684&lt;/td&gt;
+      &lt;td&gt;4068&lt;/td&gt;
+      &lt;td&gt;Physical sciences and earth sciences&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Make the table tidy (into long form)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df2 = pd.melt(df1, id_vars=[&#39;Field of study and sex&#39;,&#39;Field of study&#39;],var_name=&#39;year&#39;, value_name=&#39;number&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df2.loc[~df2[&#39;Field of study and sex&#39;].isin([&#39;Male&#39;,&#39;Female&#39;]),&#39;Field of study and sex&#39;] = &#39;All&#39;
+df2 = df2.rename(columns={&amp;quot;Field of study and sex&amp;quot;: &amp;quot;sex&amp;quot;})
+df2[&amp;quot;number&amp;quot;] = df2[&amp;quot;number&amp;quot;].astype(int)
+df2[&amp;quot;year&amp;quot;] = df2[&amp;quot;year&amp;quot;].astype(int)
+df2.head()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;sex&lt;/th&gt;
+      &lt;th&gt;Field of study&lt;/th&gt;
+      &lt;th&gt;year&lt;/th&gt;
+      &lt;th&gt;number&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;All&lt;/td&gt;
+      &lt;td&gt;Life sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;5783&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Male&lt;/td&gt;
+      &lt;td&gt;Life sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;3747&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Female&lt;/td&gt;
+      &lt;td&gt;Life sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;2036&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;All&lt;/td&gt;
+      &lt;td&gt;Physical sciences and earth sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;3811&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Male&lt;/td&gt;
+      &lt;td&gt;Physical sciences and earth sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;3177&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a small subset that only contains overall information.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df2a = df2[df2[&#39;sex&#39;] == &#39;All&#39;].reset_index().drop(columns=[&#39;index&#39;])
+df2a.head()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;sex&lt;/th&gt;
+      &lt;th&gt;Field of study&lt;/th&gt;
+      &lt;th&gt;year&lt;/th&gt;
+      &lt;th&gt;number&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;All&lt;/td&gt;
+      &lt;td&gt;Life sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;5783&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;All&lt;/td&gt;
+      &lt;td&gt;Physical sciences and earth sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;3811&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;All&lt;/td&gt;
+      &lt;td&gt;Mathematics and computer sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;1189&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;All&lt;/td&gt;
+      &lt;td&gt;Psychology and social sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;6063&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;All&lt;/td&gt;
+      &lt;td&gt;Engineering&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;3712&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a small subset that contains information by sex.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df2 = (
+    df2[df2[&#39;sex&#39;].isin([&#39;Male&#39;,&#39;Female&#39;])].
+    reset_index().drop(columns=[&#39;index&#39;])
+)
+
+df2.head()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;sex&lt;/th&gt;
+      &lt;th&gt;Field of study&lt;/th&gt;
+      &lt;th&gt;year&lt;/th&gt;
+      &lt;th&gt;number&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;Male&lt;/td&gt;
+      &lt;td&gt;Life sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;3747&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Female&lt;/td&gt;
+      &lt;td&gt;Life sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;2036&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Male&lt;/td&gt;
+      &lt;td&gt;Physical sciences and earth sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;3177&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;Female&lt;/td&gt;
+      &lt;td&gt;Physical sciences and earth sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;634&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Male&lt;/td&gt;
+      &lt;td&gt;Mathematics and computer sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;999&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;h4 id=&#34;--data-cleaning-for-table-17&#34;&gt;- Data cleaning for table 17&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;The data cleaning for table 17 is similar to that of table 14.&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df4 = pd.read_excel(&#39;D:\\3.Duke\\course\\Year_2\\semester_1\\2_Bios823\\HW\\HW6\\data_tables\\sed17-sr-tab017.xlsx&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df4 = pd.read_excel(&#39;D:\\3.Duke\\course\\Year_2\\semester_1\\2_Bios823\\HW\\HW6\\data_tables\\sed17-sr-tab017.xlsx&#39;)
+df4 = df4.iloc[7:,:]
+df4.columns = [&#39;Field of study and citizenship&#39;,&#39;1987&#39;,&#39;1992&#39;,&#39;1997&#39;,&#39;2002&#39;,&#39;2007&#39;,&#39;2012&#39;,&#39;2017&#39;]
+df4[&#39;Field of study and citizenship&#39;][7] = &#39;Life sciences&#39;
+df4[&#39;Field of study and citizenship&#39;][35] = &#39;Other&#39;
+df4 = df4.reset_index().drop(columns=[&#39;index&#39;])
+df4[&#39;Field of study&#39;] = df4.iloc[::4,0:1][&#39;Field of study and citizenship&#39;].repeat(repeats = 4).reset_index().drop(columns=[&#39;index&#39;])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df4[&#39;Field of study and citizenship&#39;][7] = &#39;Life sciences&#39;
+df4[&#39;Field of study and citizenship&#39;][35] = &#39;Other&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df5 = pd.melt(df4, id_vars=[&#39;Field of study and citizenship&#39;,&#39;Field of study&#39;],var_name=&#39;year&#39;, value_name=&#39;number&#39;)
+df5 = df5.rename(columns={&amp;quot;Field of study and citizenship&amp;quot;: &amp;quot;citizenship&amp;quot;})
+df5[&amp;quot;number&amp;quot;] = df5[&amp;quot;number&amp;quot;].astype(int)
+df5[&amp;quot;year&amp;quot;] = df5[&amp;quot;year&amp;quot;].astype(int)
+df5 = (
+    df5[df5[&#39;citizenship&#39;].isin([&#39;U.S. citizen or permanent resident&#39;,&#39;Temporary visa holder&#39;,&#39;Unknown&#39;])].
+    reset_index().drop(columns=[&#39;index&#39;])
+)
+df5.head()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;citizenship&lt;/th&gt;
+      &lt;th&gt;Field of study&lt;/th&gt;
+      &lt;th&gt;year&lt;/th&gt;
+      &lt;th&gt;number&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;U.S. citizen or permanent resident&lt;/td&gt;
+      &lt;td&gt;Life sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;4529&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Temporary visa holder&lt;/td&gt;
+      &lt;td&gt;Life sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;939&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Unknown&lt;/td&gt;
+      &lt;td&gt;Life sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;315&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;U.S. citizen or permanent resident&lt;/td&gt;
+      &lt;td&gt;Physical sciences and earth sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;2657&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Temporary visa holder&lt;/td&gt;
+      &lt;td&gt;Physical sciences and earth sciences&lt;/td&gt;
+      &lt;td&gt;1987&lt;/td&gt;
+      &lt;td&gt;929&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;2-create-dashboard-visualizations&#34;&gt;2. Create dashboard visualizations&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Here I used the dash package to create dashboard in python.&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import plotly.express as px
+import jupyter_dash
+from jupyter_dash import JupyterDash
+import dash_core_components as dcc
+import dash_html_components as html
+from dash.dependencies import Input, Output
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Doctorate recipients by sex for selected years&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For this chart, you can drag the slider to change the selected year.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;external_stylesheets = [&#39;https://codepen.io/chriddyp/pen/bWLwgP.css&#39;]
+
+app = JupyterDash(__name__, external_stylesheets=external_stylesheets)
+
+app.layout = html.Div([
+    dcc.Graph(id=&#39;graph-with-slider&#39;),
+    dcc.Slider(
+        id=&#39;year-slider&#39;,
+        min=df2[&#39;year&#39;].min(),
+        max=df2[&#39;year&#39;].max(),
+        value=df2[&#39;year&#39;].min(),
+        marks={str(year): str(year) for year in df2[&#39;year&#39;].unique()},
+        step=None
+    )
+])
+
+
+@app.callback(
+    Output(&#39;graph-with-slider&#39;, &#39;figure&#39;),
+    [Input(&#39;year-slider&#39;, &#39;value&#39;)])
+def update_figure(selected_year):
+    filtered_df = df2[df2.year == selected_year]
+
+    fig = px.bar(filtered_df, x=&amp;quot;Field of study&amp;quot;, y=&amp;quot;number&amp;quot;, color=&amp;quot;sex&amp;quot;, 
+                 title=&amp;quot;Doctorate recipients by sex for selected years&amp;quot;)
+
+    fig.update_layout(transition_duration=500)
+
+    return fig
+
+app.run_server(mode=&#39;inline&#39;,debug=True)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;fig1.gif&#34; alt=&#34;gif&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The Trend of number of doctorate recipients by sex from 1987 to 2017&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For the chart below, you can play with the dropdown box and checklist to interact with the figure.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;external_stylesheets = [&#39;https://codepen.io/chriddyp/pen/bWLwgP.css&#39;]
+
+app = JupyterDash(__name__, external_stylesheets=external_stylesheets)
+
+available_fields = df2[&#39;Field of study&#39;].unique()
+
+app.layout = html.Div([
+              
+            html.Label(&#39;Field of study&#39;),
+            dcc.Dropdown(
+                id=&#39;Field&#39;,
+                options=[{&#39;label&#39;: i, &#39;value&#39;: i} for i in available_fields],
+                value=&#39;Life sciences&#39;
+            ),
+            
+            
+            html.Label(&#39;Sex&#39;),                        
+            dcc.Checklist(
+                id=&#39;sex&#39;,
+                options=[{&#39;label&#39;: i, &#39;value&#39;: i} for i in [&#39;Female&#39;, &#39;Male&#39;]],
+                value=[&#39;Female&#39;, &#39;Male&#39;]
+            ) ,               
+                   
+            dcc.Graph(id=&#39;fields-graphic&#39;),
+
+])
+
+@app.callback(
+    Output(&#39;fields-graphic&#39;, &#39;figure&#39;),
+    [Input(&#39;Field&#39;, &#39;value&#39;),
+     Input(&#39;sex&#39;, &#39;value&#39;)
+     ])
+def update_graph(field, sex):
+
+    dff = df2[df2[&#39;Field of study&#39;] == field]
+    
+    if sex == []:
+        fig = px.line()
+    elif (sex == [&#39;Female&#39;]) or ( sex == [&#39;Male&#39;]) :
+        fig = px.line(dff[dff[&#39;sex&#39;]== sex[0]], x=&amp;quot;year&amp;quot;, y=&amp;quot;number&amp;quot;)
+    else:
+        fig = px.line(dff, x=&amp;quot;year&amp;quot;, y=&amp;quot;number&amp;quot;, color=&#39;sex&#39;)
+
+    
+    return fig
+
+app.run_server(mode=&#39;inline&#39;,debug=True)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;fig2.gif&#34; alt=&#34;gif&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Doctorate recipients by major field of study and their according sex and citizenship information summary&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The charts below combine all the information in table 14 and table 17. When your mouse &lt;strong&gt;hover&lt;/strong&gt; on the bar chart on the left, the sex and citizenship information in the according field will show on the right simultaneously.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;external_stylesheets = [&#39;https://codepen.io/chriddyp/pen/bWLwgP.css&#39;]
+app = JupyterDash(__name__, external_stylesheets=external_stylesheets)
+
+available_years = df2a[&#39;year&#39;].unique()
+
+app.layout = html.Div([
+    html.Div([
+
+        html.Div([
+            dcc.Dropdown(
+                id=&#39;year&#39;,
+                options=[{&#39;label&#39;: i, &#39;value&#39;: i} for i in available_years],
+                value=&#39;2017&#39;
+            ),
+      
+        ],
+        style={&#39;width&#39;: &#39;49%&#39;, &#39;display&#39;: &#39;inline-block&#39;})      
+    
+    ], style={
+        &#39;borderBottom&#39;: &#39;thin lightgrey solid&#39;,
+        &#39;backgroundColor&#39;: &#39;rgb(250, 250, 250)&#39;,
+        &#39;padding&#39;: &#39;10px 5px&#39;
+    }), 
+     
+    
+    html.Div([
+        dcc.Graph(
+            id=&#39;allfield_barchart&#39;,
+            hoverData={&#39;points&#39;: [{&#39;label&#39;: &#39;Life sciences&#39;}]}
+        )
+    ], style={ &#39;width&#39;: &#39;49%&#39;, &#39;display&#39;: &#39;inline-block&#39;, &#39;padding&#39;: &#39;0 20&#39;}),
+    
+   
+    
+    
+    html.Div([
+        dcc.Graph(id=&#39;sex-prop&#39;),
+        dcc.Graph(id=&#39;citizen-prop&#39;),
+    ], style={&#39;display&#39;: &#39;inline-block&#39;, &#39;width&#39;: &#39;49%&#39;})
+    
+   
+])
+
+
+@app.callback(
+    Output(&#39;allfield_barchart&#39;, &#39;figure&#39;),
+    [Input(&#39;year&#39;, &#39;value&#39;)
+    ])
+def update_graph(year_value):
+    
+    if year_value == None:
+        fig = px.bar()
+    else:    
+        dff = df2a[df2a[&#39;year&#39;] == int(year_value)]
+        fig = px.bar(dff, x=&amp;quot;Field of study&amp;quot;, y=&amp;quot;number&amp;quot;, template=&#39;seaborn&#39;,
+                    title=&amp;quot;Number of Doctorate recipients by field in %s&amp;quot; % year_value)
+
+        fig.update_layout(autosize= True, height=800 ,
+                          margin={&#39;l&#39;: 20, &#39;b&#39;: 40, &#39;t&#39;: 40, &#39;r&#39;: 20}, hovermode=&#39;closest&#39;)
+
+    return fig
+
+@app.callback(
+    Output(&#39;sex-prop&#39;, &#39;figure&#39;),
+    [Input(&#39;allfield_barchart&#39;, &#39;hoverData&#39;),
+    Input(&#39;year&#39;, &#39;value&#39;)
+    ])
+def update_sex_prop(hoverData, year_value):
+    if year_value == None:
+        fig = px.pie()
+    else: 
+        field_name = hoverData[&#39;points&#39;][0][&#39;label&#39;]
+        dff =  df2[ (df2[&#39;year&#39;] == int(year_value)) &amp;amp; (df2[&#39;Field of study&#39;] == field_name ) ]
+    
+        #title = &#39;&amp;lt;b&amp;gt;{}&amp;lt;/b&amp;gt;&amp;lt;br&amp;gt;{}&#39;.format(country_name, xaxis_column_name)
+        fig = px.pie(dff, values=&#39;number&#39;, names=&#39;sex&#39;,template=&#39;seaborn&#39;)
+        
+        fig.update_layout(legend=dict(orientation=&amp;quot;h&amp;quot;,
+        yanchor=&amp;quot;bottom&amp;quot;,y=1.02,
+        xanchor=&amp;quot;right&amp;quot;,x=1),
+        title={&#39;text&#39;: &amp;quot;sex&amp;quot;,&#39;y&#39;:0.1, &#39;x&#39;:0.5})
+    
+    return fig
+
+
+@app.callback(
+    Output(&#39;citizen-prop&#39;, &#39;figure&#39;),
+    [Input(&#39;allfield_barchart&#39;, &#39;hoverData&#39;),
+    Input(&#39;year&#39;, &#39;value&#39;)
+    ])
+def update_sex_prop(hoverData, year_value):
+    if year_value == None:
+        fig = px.pie()
+    else: 
+        field_name = hoverData[&#39;points&#39;][0][&#39;label&#39;]
+        dff =  df5[ (df5[&#39;year&#39;] == int(year_value)) &amp;amp; (df5[&#39;Field of study&#39;] == field_name ) ]
+    
+        #title = &#39;&amp;lt;b&amp;gt;{}&amp;lt;/b&amp;gt;&amp;lt;br&amp;gt;{}&#39;.format(country_name, xaxis_column_name)
+        fig = px.pie(dff, values=&#39;number&#39;, names=&#39;citizenship&#39;,template=&#39;plotly&#39;)
+        
+        fig.update_layout(legend=dict(orientation=&amp;quot;h&amp;quot;,
+        yanchor=&amp;quot;bottom&amp;quot;,y=1.02,
+        xanchor=&amp;quot;right&amp;quot;,x=1),
+        title={&#39;text&#39;: &amp;quot;citizenship&amp;quot;,&#39;y&#39;:0.1, &#39;x&#39;:0.5})
+    
+    return fig
+
+
+app.run_server(mode=&#39;inline&#39;,debug=True)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;fig3.gif&#34; alt=&#34;gif&#34;&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

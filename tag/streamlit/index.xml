@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>streamlit | Zhuoran Hou</title>
+    <link>https://ZhuoranHou.github.io/tag/streamlit/</link>
+      <atom:link href="https://ZhuoranHou.github.io/tag/streamlit/index.xml" rel="self" type="application/rss+xml" />
+    <description>streamlit</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 16 Nov 2020 19:50:57 -0500</lastBuildDate>
+    <image>
+      <url>https://ZhuoranHou.github.io/images/icon_hu6b1daddad367c9d793e5607d0ae1cd4a_68195_512x512_fill_lanczos_center_3.png</url>
+      <title>streamlit</title>
+      <link>https://ZhuoranHou.github.io/tag/streamlit/</link>
+    </image>
+    
+    <item>
+      <title>Dashboard for COVID-19 in US</title>
+      <link>https://ZhuoranHou.github.io/post/covid-dashboard/</link>
+      <pubDate>Mon, 16 Nov 2020 19:50:57 -0500</pubDate>
+      <guid>https://ZhuoranHou.github.io/post/covid-dashboard/</guid>
+      <description>&lt;p&gt;The data project is a dashboard that provided updated COVID-19 information and presents model results.&lt;/p&gt;
+&lt;p&gt;The target audience of  our dashboard is the general audience who want to know some COVID-19 information in US and what factors influence case growth rate. Thus, we added a lot of explanations in the dashboard using non-technical wording and omitted technical details of the model.&lt;/p&gt;
+&lt;h3 id=&#34;project-goals&#34;&gt;Project goals&lt;/h3&gt;
+&lt;p&gt;We first discussed the goals of our project and decided to finalize it when we had the data. After the data collection, here are the goals of the project:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Build machine learning models to predict daily case growth rate&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Explore what factors influence case growth rate&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Explore the effect of Policy&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Analyze what impact infection and death rate from individual case level&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Build a dashboard that provided updated COVID19 information and presents model results&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;data-collection-and-data-cleaning&#34;&gt;Data collection and data cleaning&lt;/h3&gt;
+&lt;p&gt;We mainly collected data from US CDC, a policy database supported by researchers in Boston University and US census bureau. Here are the main data resources we used in the project.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;COVID-19 cases in US from January till now&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;COVID-19 patient-level data&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Public-Use-Data/vbim-akqf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Public-Use-Data/vbim-akqf&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;hospital resources (Hospital Capacity by State)&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.cdc.gov/nhsn/covid19/report-patient-impact.html#anchor_1594393649&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.cdc.gov/nhsn/covid19/report-patient-impact.html#anchor_1594393649&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;COVID-19 US State Policy&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://github.com/USCOVIDpolicy/COVID-19-US-State-Policy-Database&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/USCOVIDpolicy/COVID-19-US-State-Policy-Database&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;State demographic information&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.census.gov/data/developers/data-sets/acs-1year.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.census.gov/data/developers/data-sets/acs-1year.html&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We download all the data through API from the website or just through the URL,  and cleaned the data to make it at least meet the requirement of 1NF. Also, we created a codebook for each dataset.&lt;/p&gt;
+&lt;h3 id=&#34;data-analysis-and-modeling&#34;&gt;Data analysis and Modeling&lt;/h3&gt;
+&lt;p&gt;There are three parts of our analysis:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.Comparison of the influence of policies on the increase rate of case among states&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In this part, we try to explore the effectiveness of policies of different states on controlling COVID-19 cases. After discussion, we chose four main policy: &lt;strong&gt;stay at home order, face mask mandatory, restaurant close and business close&lt;/strong&gt;. We calculated the average increase rate of total cases on each state 7/15 days before and after the implementation date of the each policy. 7 days represents short term while 15 days represents long term.&lt;/p&gt;
+&lt;p&gt;We also compare the state level increase rate and the increase rate of US to asses the performance of the state government.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2.Predict Covid19 Case Growth Rate&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Since cases changes as time goes, we first considered LSTM (Long short-term memory) recurrent neural network (RNN) model and time series model, but the results were not good.  Then, we decided only to consider increase rate and added several lags in the model to denote the effect of time instead of predicting new cases. After that, we used &lt;strong&gt;random forest&lt;/strong&gt; models to train the data and made predictions.&lt;/p&gt;
+&lt;p&gt;There were two levels of analysis: US level and states level. For US level, we used &lt;strong&gt;hospital capacity data&lt;/strong&gt; ( number of inpatient beds, number of ICU beds, etc.), &lt;strong&gt;state demographic information&lt;/strong&gt; and &lt;strong&gt;policies&lt;/strong&gt; to predict increase rate. For the state level, we only use hospital capacity data and policy data since state demographic information were &lt;em&gt;constants&lt;/em&gt; for a specific state and would not change over time. We used data before July as training datasets and data after July as test datasets.&lt;/p&gt;
+&lt;p&gt;The test RMSE (root mean square error) of US level is 0.0107, which is quite low. We also trained a random forest model for each state.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3.Individual Level Analysis&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Since the original dataset from US CDC has a large number of individual observations (over 5 million), we transformed the data into &lt;strong&gt;SQL database&lt;/strong&gt; and performed &lt;strong&gt;stratified sampling&lt;/strong&gt; based on the age group (5% of the data).&lt;/p&gt;
+&lt;p&gt;The treemap of the original data (we extracted 1.5M observations):&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;tree2.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The treemap of the data after sampling:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;tree.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;We can see that we maintained the age structure by this sampling method. Then, we explored how age, sex and race influence the infection cases and fatality cases.&lt;/p&gt;
+&lt;h3 id=&#34;data-visualization-and-development-of-data-product&#34;&gt;Data visualization and Development of data product&lt;/h3&gt;
+&lt;p&gt;We used &lt;em&gt;&lt;strong&gt;streamlit&lt;/strong&gt;&lt;/em&gt; to build a dashboard to show our data and analysis results.&lt;/p&gt;
+&lt;p&gt;There are four parts of the dashboard:&lt;/p&gt;
+&lt;p&gt;1.Overview of the COVID-19 cases and death cases by states in US (updated everyday)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The trend of new cases and new death cases from January till now by state.&lt;/li&gt;
+&lt;li&gt;Map plot showing total cases,  new cases, cases per million people, death per million people based the latest data.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;part1.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;2.Comparison of the influence of policies on the increase rate of case among states&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Top 5 states with worse/best policy performance based on 7/15 day ranges&lt;/li&gt;
+&lt;li&gt;Map plot showing the relative Increase Rate of individual states compare to the US&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;part2.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;3.Predict case growth rate using hospital capacity, state demographic information and related policies based on Random forest.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Feature Importance plot for the entire U.S. level&lt;/li&gt;
+&lt;li&gt;Actual VS Predicted daily case growth rate for each state&lt;/li&gt;
+&lt;li&gt;Feature Importance plot for the individual state level&lt;/li&gt;
+&lt;li&gt;Pie chart showing state&amp;rsquo;s Sex ratio, race ratio&lt;/li&gt;
+&lt;li&gt;Bar plot of age groups, data table of the state&amp;rsquo;s demographic information&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;US level:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;part3.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;State level:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;part3_2.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;4.Explore how sex, age race and commodity affect the development of COVID-19 from a individual level&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Sampling process of original data&lt;/li&gt;
+&lt;li&gt;Tree plot of data specified by age_group&lt;/li&gt;
+&lt;li&gt;Death cases count/rate for each age group; Infection cases count/rate for each age group (faceted by gender)&lt;/li&gt;
+&lt;li&gt;Death cases count/rate for each race; Infection cases count/rate for each race (faceted by gender)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;part4.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;deployment&#34;&gt;Deployment&lt;/h3&gt;
+&lt;p&gt;We deployed the dashboard at this 
+&lt;a href=&#34;https://github.com/QianyinLu/finalproject1&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt; .&lt;strong&gt;Our final data product can be access from 
+&lt;a href=&#34;https://final-project-823.herokuapp.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1959 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>visualization | Zhuoran Hou</title>
+    <link>https://ZhuoranHou.github.io/tag/visualization/</link>
+      <atom:link href="https://ZhuoranHou.github.io/tag/visualization/index.xml" rel="self" type="application/rss+xml" />
+    <description>visualization</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 29 Sep 2020 21:51:08 -0400</lastBuildDate>
+    <image>
+      <url>https://ZhuoranHou.github.io/images/icon_hu6b1daddad367c9d793e5607d0ae1cd4a_68195_512x512_fill_lanczos_center_3.png</url>
+      <title>visualization</title>
+      <link>https://ZhuoranHou.github.io/tag/visualization/</link>
+    </image>
+    
+    <item>
+      <title>Malaria datasets visualizations</title>
+      <link>https://ZhuoranHou.github.io/post/malaria_dataset_visualizations/</link>
+      <pubDate>Tue, 29 Sep 2020 21:51:08 -0400</pubDate>
+      <guid>https://ZhuoranHou.github.io/post/malaria_dataset_visualizations/</guid>
+      <description>&lt;p&gt;In this blog, I visualized three malaria datasets using Python. The datasets are from here: 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday/tree/master/data/2018/2018-11-13&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/rfordatascience/tidytuesday/tree/master/data/2018/2018-11-13&lt;/a&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;%matplotlib inline
+import matplotlib.pyplot as plt  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import pandas as pd
+import seaborn as sns 
+import numpy as np
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I first find a outside database about the continent information of countries, which I used in the following visualizations.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df0 = pd.read_csv(&amp;quot;https://datahub.io/JohnSnowLabs/country-and-continent-codes-list/r/country-and-continent-codes-list-csv.csv&amp;quot;)
+df0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;Continent_Name&lt;/th&gt;
+      &lt;th&gt;Continent_Code&lt;/th&gt;
+      &lt;th&gt;Country_Name&lt;/th&gt;
+      &lt;th&gt;Two_Letter_Country_Code&lt;/th&gt;
+      &lt;th&gt;Three_Letter_Country_Code&lt;/th&gt;
+      &lt;th&gt;Country_Number&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;Asia&lt;/td&gt;
+      &lt;td&gt;AS&lt;/td&gt;
+      &lt;td&gt;Afghanistan, Islamic Republic of&lt;/td&gt;
+      &lt;td&gt;AF&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;4.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Europe&lt;/td&gt;
+      &lt;td&gt;EU&lt;/td&gt;
+      &lt;td&gt;Albania, Republic of&lt;/td&gt;
+      &lt;td&gt;AL&lt;/td&gt;
+      &lt;td&gt;ALB&lt;/td&gt;
+      &lt;td&gt;8.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Antarctica&lt;/td&gt;
+      &lt;td&gt;AN&lt;/td&gt;
+      &lt;td&gt;Antarctica (the territory South of 60 deg S)&lt;/td&gt;
+      &lt;td&gt;AQ&lt;/td&gt;
+      &lt;td&gt;ATA&lt;/td&gt;
+      &lt;td&gt;10.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;Africa&lt;/td&gt;
+      &lt;td&gt;AF&lt;/td&gt;
+      &lt;td&gt;Algeria, People&#39;s Democratic Republic of&lt;/td&gt;
+      &lt;td&gt;DZ&lt;/td&gt;
+      &lt;td&gt;DZA&lt;/td&gt;
+      &lt;td&gt;12.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Oceania&lt;/td&gt;
+      &lt;td&gt;OC&lt;/td&gt;
+      &lt;td&gt;American Samoa&lt;/td&gt;
+      &lt;td&gt;AS&lt;/td&gt;
+      &lt;td&gt;ASM&lt;/td&gt;
+      &lt;td&gt;16.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;...&lt;/th&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;257&lt;/th&gt;
+      &lt;td&gt;Africa&lt;/td&gt;
+      &lt;td&gt;AF&lt;/td&gt;
+      &lt;td&gt;Zambia, Republic of&lt;/td&gt;
+      &lt;td&gt;ZM&lt;/td&gt;
+      &lt;td&gt;ZMB&lt;/td&gt;
+      &lt;td&gt;894.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;258&lt;/th&gt;
+      &lt;td&gt;Oceania&lt;/td&gt;
+      &lt;td&gt;OC&lt;/td&gt;
+      &lt;td&gt;Disputed Territory&lt;/td&gt;
+      &lt;td&gt;XX&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;259&lt;/th&gt;
+      &lt;td&gt;Asia&lt;/td&gt;
+      &lt;td&gt;AS&lt;/td&gt;
+      &lt;td&gt;Iraq-Saudi Arabia Neutral Zone&lt;/td&gt;
+      &lt;td&gt;XE&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;260&lt;/th&gt;
+      &lt;td&gt;Asia&lt;/td&gt;
+      &lt;td&gt;AS&lt;/td&gt;
+      &lt;td&gt;United Nations Neutral Zone&lt;/td&gt;
+      &lt;td&gt;XD&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;261&lt;/th&gt;
+      &lt;td&gt;Asia&lt;/td&gt;
+      &lt;td&gt;AS&lt;/td&gt;
+      &lt;td&gt;Spratly Islands&lt;/td&gt;
+      &lt;td&gt;XS&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;262 rows × 6 columns&lt;/p&gt;
+&lt;/div&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;dfc = (
+    df0.iloc[:,[0,4]].
+    dropna(subset=[&#39;Three_Letter_Country_Code&#39;]).
+    drop_duplicates(subset=[&#39;Three_Letter_Country_Code&#39;])
+)
+
+dfc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;Continent_Name&lt;/th&gt;
+      &lt;th&gt;Three_Letter_Country_Code&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;Asia&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Europe&lt;/td&gt;
+      &lt;td&gt;ALB&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Antarctica&lt;/td&gt;
+      &lt;td&gt;ATA&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;Africa&lt;/td&gt;
+      &lt;td&gt;DZA&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Oceania&lt;/td&gt;
+      &lt;td&gt;ASM&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;...&lt;/th&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;253&lt;/th&gt;
+      &lt;td&gt;South America&lt;/td&gt;
+      &lt;td&gt;VEN&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;254&lt;/th&gt;
+      &lt;td&gt;Oceania&lt;/td&gt;
+      &lt;td&gt;WLF&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;255&lt;/th&gt;
+      &lt;td&gt;Oceania&lt;/td&gt;
+      &lt;td&gt;WSM&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;256&lt;/th&gt;
+      &lt;td&gt;Asia&lt;/td&gt;
+      &lt;td&gt;YEM&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;257&lt;/th&gt;
+      &lt;td&gt;Africa&lt;/td&gt;
+      &lt;td&gt;ZMB&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;250 rows × 2 columns&lt;/p&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;1-malaria-deaths-by-country-for-all-ages-across-the-world-and-time&#34;&gt;1. Malaria deaths by country for all ages across the world and time.&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Read the dataset&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df1 = pd.read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-11-13/malaria_deaths.csv&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df1 = df1.dropna(subset=[&#39;Code&#39;]) ## drop those are not countries
+df1 = df1[df1[&#39;Entity&#39;] != &#39;World&#39;]  ## delete whole world data
+df1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;Entity&lt;/th&gt;
+      &lt;th&gt;Code&lt;/th&gt;
+      &lt;th&gt;Year&lt;/th&gt;
+      &lt;th&gt;Deaths - Malaria - Sex: Both - Age: Age-standardized (Rate) (per 100,000 people)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;1990&lt;/td&gt;
+      &lt;td&gt;6.802930&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;1991&lt;/td&gt;
+      &lt;td&gt;6.973494&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;1992&lt;/td&gt;
+      &lt;td&gt;6.989882&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;1993&lt;/td&gt;
+      &lt;td&gt;7.088983&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;1994&lt;/td&gt;
+      &lt;td&gt;7.392472&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;...&lt;/th&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;6151&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2012&lt;/td&gt;
+      &lt;td&gt;9.751727&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;6152&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2013&lt;/td&gt;
+      &lt;td&gt;9.419939&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;6153&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2014&lt;/td&gt;
+      &lt;td&gt;9.487453&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;6154&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;9.440046&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;6155&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2016&lt;/td&gt;
+      &lt;td&gt;9.507309&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;5265 rows × 4 columns&lt;/p&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Rename the column names&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df1.columns=[&#39;Entity&#39;, &#39;Code&#39;, &#39;Year&#39;,&#39;Mortality rate&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Choose top ten countries with the highest mean mortality rate from 1990 to 2016&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df1_m = ( 
+    df1.groupby(by=&amp;quot;Entity&amp;quot;).agg(&#39;mean&#39;).
+    sort_values(by=&#39;Mortality rate&#39;,ascending=False).
+    iloc[:10,1:].copy()
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df1_m = df1_m.reset_index().copy()
+df1_m
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;Entity&lt;/th&gt;
+      &lt;th&gt;Mortality rate&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;Sierra Leone&lt;/td&gt;
+      &lt;td&gt;181.658950&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Burkina Faso&lt;/td&gt;
+      &lt;td&gt;169.667275&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Uganda&lt;/td&gt;
+      &lt;td&gt;147.281621&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;Equatorial Guinea&lt;/td&gt;
+      &lt;td&gt;142.713265&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Cote d&#39;Ivoire&lt;/td&gt;
+      &lt;td&gt;140.610546&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;5&lt;/th&gt;
+      &lt;td&gt;Nigeria&lt;/td&gt;
+      &lt;td&gt;135.902567&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;6&lt;/th&gt;
+      &lt;td&gt;Niger&lt;/td&gt;
+      &lt;td&gt;135.766525&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;7&lt;/th&gt;
+      &lt;td&gt;Democratic Republic of Congo&lt;/td&gt;
+      &lt;td&gt;134.571369&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;8&lt;/th&gt;
+      &lt;td&gt;Burundi&lt;/td&gt;
+      &lt;td&gt;131.296440&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;9&lt;/th&gt;
+      &lt;td&gt;Mali&lt;/td&gt;
+      &lt;td&gt;122.955185&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df1_m[&#39;Entity&#39;][7] = &amp;quot;DR Congo&amp;quot;
+df1_m
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;Entity&lt;/th&gt;
+      &lt;th&gt;Mortality rate&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;Sierra Leone&lt;/td&gt;
+      &lt;td&gt;181.658950&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Burkina Faso&lt;/td&gt;
+      &lt;td&gt;169.667275&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Uganda&lt;/td&gt;
+      &lt;td&gt;147.281621&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;Equatorial Guinea&lt;/td&gt;
+      &lt;td&gt;142.713265&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Cote d&#39;Ivoire&lt;/td&gt;
+      &lt;td&gt;140.610546&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;5&lt;/th&gt;
+      &lt;td&gt;Nigeria&lt;/td&gt;
+      &lt;td&gt;135.902567&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;6&lt;/th&gt;
+      &lt;td&gt;Niger&lt;/td&gt;
+      &lt;td&gt;135.766525&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;7&lt;/th&gt;
+      &lt;td&gt;DR Congo&lt;/td&gt;
+      &lt;td&gt;134.571369&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;8&lt;/th&gt;
+      &lt;td&gt;Burundi&lt;/td&gt;
+      &lt;td&gt;131.296440&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;9&lt;/th&gt;
+      &lt;td&gt;Mali&lt;/td&gt;
+      &lt;td&gt;122.955185&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Plot the bar plot&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;fig, axes = plt.subplots(1, 1, figsize=(10,4))
+
+g1 = sns.barplot(x=&#39;Entity&#39;, y=&#39;Mortality rate&#39;, data=df1_m)
+labels = df1_m[&#39;Entity&#39;]
+g1.set_xticklabels(labels,rotation=-45)
+plt.title(&#39;Top ten countries with the highest mean mortality rate from 1990 to 2016&#39;)
+
+pass
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;output_19_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Plot the trend of mortality rate of these ten countries&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df1_ss = df1[df1[&#39;Entity&#39;].isin(df1_m[&#39;Entity&#39;])].copy()
+df1_ss
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;Entity&lt;/th&gt;
+      &lt;th&gt;Code&lt;/th&gt;
+      &lt;th&gt;Year&lt;/th&gt;
+      &lt;th&gt;Mortality rate&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;810&lt;/th&gt;
+      &lt;td&gt;Burkina Faso&lt;/td&gt;
+      &lt;td&gt;BFA&lt;/td&gt;
+      &lt;td&gt;1990&lt;/td&gt;
+      &lt;td&gt;148.890249&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;811&lt;/th&gt;
+      &lt;td&gt;Burkina Faso&lt;/td&gt;
+      &lt;td&gt;BFA&lt;/td&gt;
+      &lt;td&gt;1991&lt;/td&gt;
+      &lt;td&gt;154.470849&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;812&lt;/th&gt;
+      &lt;td&gt;Burkina Faso&lt;/td&gt;
+      &lt;td&gt;BFA&lt;/td&gt;
+      &lt;td&gt;1992&lt;/td&gt;
+      &lt;td&gt;158.051907&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;813&lt;/th&gt;
+      &lt;td&gt;Burkina Faso&lt;/td&gt;
+      &lt;td&gt;BFA&lt;/td&gt;
+      &lt;td&gt;1993&lt;/td&gt;
+      &lt;td&gt;162.043022&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;814&lt;/th&gt;
+      &lt;td&gt;Burkina Faso&lt;/td&gt;
+      &lt;td&gt;BFA&lt;/td&gt;
+      &lt;td&gt;1994&lt;/td&gt;
+      &lt;td&gt;164.068758&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;...&lt;/th&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;5692&lt;/th&gt;
+      &lt;td&gt;Uganda&lt;/td&gt;
+      &lt;td&gt;UGA&lt;/td&gt;
+      &lt;td&gt;2012&lt;/td&gt;
+      &lt;td&gt;69.818389&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;5693&lt;/th&gt;
+      &lt;td&gt;Uganda&lt;/td&gt;
+      &lt;td&gt;UGA&lt;/td&gt;
+      &lt;td&gt;2013&lt;/td&gt;
+      &lt;td&gt;54.161004&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;5694&lt;/th&gt;
+      &lt;td&gt;Uganda&lt;/td&gt;
+      &lt;td&gt;UGA&lt;/td&gt;
+      &lt;td&gt;2014&lt;/td&gt;
+      &lt;td&gt;48.320006&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;5695&lt;/th&gt;
+      &lt;td&gt;Uganda&lt;/td&gt;
+      &lt;td&gt;UGA&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;50.672187&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;5696&lt;/th&gt;
+      &lt;td&gt;Uganda&lt;/td&gt;
+      &lt;td&gt;UGA&lt;/td&gt;
+      &lt;td&gt;2016&lt;/td&gt;
+      &lt;td&gt;49.232941&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;243 rows × 4 columns&lt;/p&gt;
+&lt;/div&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;fig, axes = plt.subplots(1, 1, figsize=(15,8))
+sns.lineplot(x=&#39;Year&#39;, y=&#39;Mortality rate&#39;,hue = &#39;Entity&#39; , data=df1_ss)
+plt.title(&#39;Mortality rate for top ten countries with the highest mortality rate from 1990 to 2016&#39;)
+plt.legend(loc=&#39;best&#39;, fontsize=10)
+pass
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;output_22_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2-malaria-deaths-by-age-across-the-world-and-time&#34;&gt;2. Malaria deaths by age across the world and time.&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Read the dataset&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df2 = pd.read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-11-13/malaria_deaths_age.csv&#39;,index_col = 0)
+df2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;entity&lt;/th&gt;
+      &lt;th&gt;code&lt;/th&gt;
+      &lt;th&gt;year&lt;/th&gt;
+      &lt;th&gt;age_group&lt;/th&gt;
+      &lt;th&gt;deaths&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;1990&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;184.606435&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;1991&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;191.658193&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;1992&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;197.140197&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;1993&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;207.357753&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;5&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;1994&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;226.209363&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;...&lt;/th&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30776&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2012&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;103.185111&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30777&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2013&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;100.113293&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30778&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2014&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;99.013890&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30779&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;98.091738&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30780&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2016&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;97.402058&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;30780 rows × 5 columns&lt;/p&gt;
+&lt;/div&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df2 = df2.dropna(subset=[&#39;code&#39;]) ## drop those are not countries
+df2 = df2[df2[&#39;entity&#39;] != &#39;World&#39;]  ## delete whole world data
+df2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;entity&lt;/th&gt;
+      &lt;th&gt;code&lt;/th&gt;
+      &lt;th&gt;year&lt;/th&gt;
+      &lt;th&gt;age_group&lt;/th&gt;
+      &lt;th&gt;deaths&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;1990&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;184.606435&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;1991&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;191.658193&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;1992&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;197.140197&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;1993&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;207.357753&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;5&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;1994&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;226.209363&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;...&lt;/th&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30776&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2012&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;103.185111&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30777&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2013&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;100.113293&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30778&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2014&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;99.013890&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30779&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;98.091738&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30780&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2016&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;97.402058&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;26325 rows × 5 columns&lt;/p&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;choose top ten countries with most death cases&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df2_t2 = df2[df2[&#39;entity&#39;].isin(df2_t[&#39;entity&#39;])].copy()
+df2_t2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;entity&lt;/th&gt;
+      &lt;th&gt;code&lt;/th&gt;
+      &lt;th&gt;year&lt;/th&gt;
+      &lt;th&gt;age_group&lt;/th&gt;
+      &lt;th&gt;deaths&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;811&lt;/th&gt;
+      &lt;td&gt;Burkina Faso&lt;/td&gt;
+      &lt;td&gt;BFA&lt;/td&gt;
+      &lt;td&gt;1990&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;18239.856090&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;812&lt;/th&gt;
+      &lt;td&gt;Burkina Faso&lt;/td&gt;
+      &lt;td&gt;BFA&lt;/td&gt;
+      &lt;td&gt;1991&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;19262.190962&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;813&lt;/th&gt;
+      &lt;td&gt;Burkina Faso&lt;/td&gt;
+      &lt;td&gt;BFA&lt;/td&gt;
+      &lt;td&gt;1992&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;20171.050076&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;814&lt;/th&gt;
+      &lt;td&gt;Burkina Faso&lt;/td&gt;
+      &lt;td&gt;BFA&lt;/td&gt;
+      &lt;td&gt;1993&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;21023.473688&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;815&lt;/th&gt;
+      &lt;td&gt;Burkina Faso&lt;/td&gt;
+      &lt;td&gt;BFA&lt;/td&gt;
+      &lt;td&gt;1994&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;21625.799178&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;...&lt;/th&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30317&lt;/th&gt;
+      &lt;td&gt;Uganda&lt;/td&gt;
+      &lt;td&gt;UGA&lt;/td&gt;
+      &lt;td&gt;2012&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;1223.126262&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30318&lt;/th&gt;
+      &lt;td&gt;Uganda&lt;/td&gt;
+      &lt;td&gt;UGA&lt;/td&gt;
+      &lt;td&gt;2013&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;1000.050301&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30319&lt;/th&gt;
+      &lt;td&gt;Uganda&lt;/td&gt;
+      &lt;td&gt;UGA&lt;/td&gt;
+      &lt;td&gt;2014&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;949.020874&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30320&lt;/th&gt;
+      &lt;td&gt;Uganda&lt;/td&gt;
+      &lt;td&gt;UGA&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;1083.887084&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30321&lt;/th&gt;
+      &lt;td&gt;Uganda&lt;/td&gt;
+      &lt;td&gt;UGA&lt;/td&gt;
+      &lt;td&gt;2016&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;1086.361351&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;1350 rows × 5 columns&lt;/p&gt;
+&lt;/div&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df2_t2.loc[df2_t2[&#39;entity&#39;] == &#39;Democratic Republic of Congo&#39;,&#39;entity&#39;] = &#39;DR Congo&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df2_t3 = df2_t2.groupby(by=[&amp;quot;entity&amp;quot;,&amp;quot;age_group&amp;quot;]).agg(&#39;mean&#39;).iloc[:,[1]].unstack(&#39;age_group&#39;)
+df2_t3.columns = [&#39;15-49&#39;,&#39;5-14&#39;,&#39;50-69&#39;,&#39;70 or older&#39;,&#39;Under 5&#39;]
+df2_t3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;15-49&lt;/th&gt;
+      &lt;th&gt;5-14&lt;/th&gt;
+      &lt;th&gt;50-69&lt;/th&gt;
+      &lt;th&gt;70 or older&lt;/th&gt;
+      &lt;th&gt;Under 5&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;entity&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Burkina Faso&lt;/th&gt;
+      &lt;td&gt;1440.986219&lt;/td&gt;
+      &lt;td&gt;2180.110659&lt;/td&gt;
+      &lt;td&gt;949.531799&lt;/td&gt;
+      &lt;td&gt;616.307888&lt;/td&gt;
+      &lt;td&gt;27090.929143&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Cameroon&lt;/th&gt;
+      &lt;td&gt;1841.799877&lt;/td&gt;
+      &lt;td&gt;2087.751841&lt;/td&gt;
+      &lt;td&gt;1260.056940&lt;/td&gt;
+      &lt;td&gt;843.155975&lt;/td&gt;
+      &lt;td&gt;18920.406820&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Cote d&#39;Ivoire&lt;/th&gt;
+      &lt;td&gt;2435.445658&lt;/td&gt;
+      &lt;td&gt;2707.015515&lt;/td&gt;
+      &lt;td&gt;1540.863000&lt;/td&gt;
+      &lt;td&gt;961.537118&lt;/td&gt;
+      &lt;td&gt;19893.376484&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;DR Congo&lt;/th&gt;
+      &lt;td&gt;5865.025596&lt;/td&gt;
+      &lt;td&gt;7418.616598&lt;/td&gt;
+      &lt;td&gt;3738.726743&lt;/td&gt;
+      &lt;td&gt;2173.788505&lt;/td&gt;
+      &lt;td&gt;78082.393657&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;India&lt;/th&gt;
+      &lt;td&gt;7467.822952&lt;/td&gt;
+      &lt;td&gt;12800.418534&lt;/td&gt;
+      &lt;td&gt;4570.759705&lt;/td&gt;
+      &lt;td&gt;2180.711296&lt;/td&gt;
+      &lt;td&gt;33569.693452&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Mozambique&lt;/th&gt;
+      &lt;td&gt;1768.206804&lt;/td&gt;
+      &lt;td&gt;2589.157880&lt;/td&gt;
+      &lt;td&gt;942.746073&lt;/td&gt;
+      &lt;td&gt;646.568790&lt;/td&gt;
+      &lt;td&gt;24264.110234&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Niger&lt;/th&gt;
+      &lt;td&gt;1049.787630&lt;/td&gt;
+      &lt;td&gt;1951.445501&lt;/td&gt;
+      &lt;td&gt;754.023705&lt;/td&gt;
+      &lt;td&gt;476.335101&lt;/td&gt;
+      &lt;td&gt;21820.324927&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Nigeria&lt;/th&gt;
+      &lt;td&gt;9019.184357&lt;/td&gt;
+      &lt;td&gt;17961.554380&lt;/td&gt;
+      &lt;td&gt;6505.248814&lt;/td&gt;
+      &lt;td&gt;4558.828812&lt;/td&gt;
+      &lt;td&gt;213128.814854&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Tanzania&lt;/th&gt;
+      &lt;td&gt;2282.382476&lt;/td&gt;
+      &lt;td&gt;2561.401544&lt;/td&gt;
+      &lt;td&gt;1270.799946&lt;/td&gt;
+      &lt;td&gt;814.388226&lt;/td&gt;
+      &lt;td&gt;24197.304098&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Uganda&lt;/th&gt;
+      &lt;td&gt;3213.540577&lt;/td&gt;
+      &lt;td&gt;4041.199036&lt;/td&gt;
+      &lt;td&gt;1844.906441&lt;/td&gt;
+      &lt;td&gt;1290.584647&lt;/td&gt;
+      &lt;td&gt;40908.586984&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df2_t3.plot(kind=&#39;bar&#39;, stacked=True,figsize=(15, 10),rot = -45, title = &amp;quot;Malaria Year Deaths means by age group from top ten countries with most death cases &amp;quot;)
+pass
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;output_31_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Choose Nigeria to see the trend of death cases across countries&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df2_nig = df2[df2[&#39;entity&#39;] == &#39;Nigeria&#39; ].copy()
+df2_nig
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;entity&lt;/th&gt;
+      &lt;th&gt;code&lt;/th&gt;
+      &lt;th&gt;year&lt;/th&gt;
+      &lt;th&gt;age_group&lt;/th&gt;
+      &lt;th&gt;deaths&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3889&lt;/th&gt;
+      &lt;td&gt;Nigeria&lt;/td&gt;
+      &lt;td&gt;NGA&lt;/td&gt;
+      &lt;td&gt;1990&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;169612.233561&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3890&lt;/th&gt;
+      &lt;td&gt;Nigeria&lt;/td&gt;
+      &lt;td&gt;NGA&lt;/td&gt;
+      &lt;td&gt;1991&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;177084.049314&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3891&lt;/th&gt;
+      &lt;td&gt;Nigeria&lt;/td&gt;
+      &lt;td&gt;NGA&lt;/td&gt;
+      &lt;td&gt;1992&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;182532.593757&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3892&lt;/th&gt;
+      &lt;td&gt;Nigeria&lt;/td&gt;
+      &lt;td&gt;NGA&lt;/td&gt;
+      &lt;td&gt;1993&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;189569.206430&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3893&lt;/th&gt;
+      &lt;td&gt;Nigeria&lt;/td&gt;
+      &lt;td&gt;NGA&lt;/td&gt;
+      &lt;td&gt;1994&lt;/td&gt;
+      &lt;td&gt;Under 5&lt;/td&gt;
+      &lt;td&gt;194656.088044&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;...&lt;/th&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;28535&lt;/th&gt;
+      &lt;td&gt;Nigeria&lt;/td&gt;
+      &lt;td&gt;NGA&lt;/td&gt;
+      &lt;td&gt;2012&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;6362.466362&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;28536&lt;/th&gt;
+      &lt;td&gt;Nigeria&lt;/td&gt;
+      &lt;td&gt;NGA&lt;/td&gt;
+      &lt;td&gt;2013&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;6225.805881&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;28537&lt;/th&gt;
+      &lt;td&gt;Nigeria&lt;/td&gt;
+      &lt;td&gt;NGA&lt;/td&gt;
+      &lt;td&gt;2014&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;6309.529067&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;28538&lt;/th&gt;
+      &lt;td&gt;Nigeria&lt;/td&gt;
+      &lt;td&gt;NGA&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;6436.740885&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;28539&lt;/th&gt;
+      &lt;td&gt;Nigeria&lt;/td&gt;
+      &lt;td&gt;NGA&lt;/td&gt;
+      &lt;td&gt;2016&lt;/td&gt;
+      &lt;td&gt;50-69&lt;/td&gt;
+      &lt;td&gt;6489.088313&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;135 rows × 5 columns&lt;/p&gt;
+&lt;/div&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;fig, axes = plt.subplots(1, 1, figsize=(15,8))
+sns.lineplot(x=&#39;year&#39;, y=&#39;deaths&#39;,hue = &#39;age_group&#39;, hue_order = [&#39;Under 5&#39;,&#39;5-14&#39;,&#39;15-49&#39;,&#39;50-69&#39;,&#39;70 or older&#39;] , data=df2_nig)
+plt.title(&#39;Malaria Deaths Rate in Nigeria by age group from 1990 to 2016&#39;)
+plt.legend(loc=&#39;best&#39;, fontsize=10)
+pass
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;output_34_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;3-malaria-incidence-by-country-for-all-ages-across-the-world-across-time&#34;&gt;3. Malaria incidence by country for all ages across the world across time&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Read dataset&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df3 = pd.read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-11-13/malaria_inc.csv&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;Entity&lt;/th&gt;
+      &lt;th&gt;Code&lt;/th&gt;
+      &lt;th&gt;Year&lt;/th&gt;
+      &lt;th&gt;Incidence of malaria (per 1,000 population at risk) (per 1,000 population at risk)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;107.100000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;46.500000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;23.900000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;23.600000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Algeria&lt;/td&gt;
+      &lt;td&gt;DZA&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;0.037746&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;...&lt;/th&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;503&lt;/th&gt;
+      &lt;td&gt;Zambia&lt;/td&gt;
+      &lt;td&gt;ZMB&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;173.700000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;504&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;143.200000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;505&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;142.500000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;506&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;129.600000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;507&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;114.200000&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;508 rows × 4 columns&lt;/p&gt;
+&lt;/div&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df3 = df3.dropna(subset=[&#39;Code&#39;]) ## drop those are not countries
+df3 = df3[df3[&#39;Entity&#39;] != &#39;World&#39;]  ## delete whole world data
+df3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;Entity&lt;/th&gt;
+      &lt;th&gt;Code&lt;/th&gt;
+      &lt;th&gt;Year&lt;/th&gt;
+      &lt;th&gt;Incidence of malaria (per 1,000 population at risk) (per 1,000 population at risk)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;107.100000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;46.500000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;23.900000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;23.600000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Algeria&lt;/td&gt;
+      &lt;td&gt;DZA&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;0.037746&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;...&lt;/th&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;503&lt;/th&gt;
+      &lt;td&gt;Zambia&lt;/td&gt;
+      &lt;td&gt;ZMB&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;173.700000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;504&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;143.200000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;505&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;142.500000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;506&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;129.600000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;507&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;114.200000&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;396 rows × 4 columns&lt;/p&gt;
+&lt;/div&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df3.columns=[&#39;Entity&#39;, &#39;Code&#39;, &#39;Year&#39;, &#39;Incidence of malaria&#39;]
+df3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;Entity&lt;/th&gt;
+      &lt;th&gt;Code&lt;/th&gt;
+      &lt;th&gt;Year&lt;/th&gt;
+      &lt;th&gt;Incidence of malaria&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;107.100000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;46.500000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;23.900000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;23.600000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Algeria&lt;/td&gt;
+      &lt;td&gt;DZA&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;0.037746&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;...&lt;/th&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;503&lt;/th&gt;
+      &lt;td&gt;Zambia&lt;/td&gt;
+      &lt;td&gt;ZMB&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;173.700000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;504&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;143.200000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;505&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;142.500000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;506&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;129.600000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;507&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;114.200000&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;396 rows × 4 columns&lt;/p&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Join the table with the Continents table&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df3_1 = df3.merge(dfc,left_on = &#39;Code&#39;, right_on = &#39;Three_Letter_Country_Code&#39;, how = &#39;left&#39; )
+df3_1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;Entity&lt;/th&gt;
+      &lt;th&gt;Code&lt;/th&gt;
+      &lt;th&gt;Year&lt;/th&gt;
+      &lt;th&gt;Incidence of malaria&lt;/th&gt;
+      &lt;th&gt;Continent_Name&lt;/th&gt;
+      &lt;th&gt;Three_Letter_Country_Code&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;107.100000&lt;/td&gt;
+      &lt;td&gt;Asia&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;46.500000&lt;/td&gt;
+      &lt;td&gt;Asia&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;23.900000&lt;/td&gt;
+      &lt;td&gt;Asia&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;Afghanistan&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;23.600000&lt;/td&gt;
+      &lt;td&gt;Asia&lt;/td&gt;
+      &lt;td&gt;AFG&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Algeria&lt;/td&gt;
+      &lt;td&gt;DZA&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;0.037746&lt;/td&gt;
+      &lt;td&gt;Africa&lt;/td&gt;
+      &lt;td&gt;DZA&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;...&lt;/th&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;391&lt;/th&gt;
+      &lt;td&gt;Zambia&lt;/td&gt;
+      &lt;td&gt;ZMB&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;173.700000&lt;/td&gt;
+      &lt;td&gt;Africa&lt;/td&gt;
+      &lt;td&gt;ZMB&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;392&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;143.200000&lt;/td&gt;
+      &lt;td&gt;Africa&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;393&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;142.500000&lt;/td&gt;
+      &lt;td&gt;Africa&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;394&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;129.600000&lt;/td&gt;
+      &lt;td&gt;Africa&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;395&lt;/th&gt;
+      &lt;td&gt;Zimbabwe&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;114.200000&lt;/td&gt;
+      &lt;td&gt;Africa&lt;/td&gt;
+      &lt;td&gt;ZWE&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;396 rows × 6 columns&lt;/p&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Plot the trend of Mean Malaria Incidence for different Continents from 2000 to 2015&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df3_2 = df3_1.groupby(by=[&amp;quot;Continent_Name&amp;quot;,&amp;quot;Year&amp;quot;]).agg(&#39;mean&#39;).reset_index()
+df3_2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&#34;text-align: right;&#34;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;Continent_Name&lt;/th&gt;
+      &lt;th&gt;Year&lt;/th&gt;
+      &lt;th&gt;Incidence of malaria&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;Africa&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;323.941229&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Africa&lt;/td&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;267.446852&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Africa&lt;/td&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;215.629814&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;Africa&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;173.338338&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Asia&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;58.626923&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;5&lt;/th&gt;
+      &lt;td&gt;Asia&lt;/td&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;42.831822&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;6&lt;/th&gt;
+      &lt;td&gt;Asia&lt;/td&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;22.113422&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;7&lt;/th&gt;
+      &lt;td&gt;Asia&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;6.034621&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;8&lt;/th&gt;
+      &lt;td&gt;Europe&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;590.066667&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;9&lt;/th&gt;
+      &lt;td&gt;Europe&lt;/td&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;102.033333&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;10&lt;/th&gt;
+      &lt;td&gt;Europe&lt;/td&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;0.166667&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;11&lt;/th&gt;
+      &lt;td&gt;Europe&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;0.000000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;12&lt;/th&gt;
+      &lt;td&gt;North America&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;15.070000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;13&lt;/th&gt;
+      &lt;td&gt;North America&lt;/td&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;11.170000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;14&lt;/th&gt;
+      &lt;td&gt;North America&lt;/td&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;3.803387&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;15&lt;/th&gt;
+      &lt;td&gt;North America&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;1.960527&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;16&lt;/th&gt;
+      &lt;td&gt;Oceania&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;293.666667&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;17&lt;/th&gt;
+      &lt;td&gt;Oceania&lt;/td&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;277.666667&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;18&lt;/th&gt;
+      &lt;td&gt;Oceania&lt;/td&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;132.633333&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;19&lt;/th&gt;
+      &lt;td&gt;Oceania&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;64.166667&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;20&lt;/th&gt;
+      &lt;td&gt;South America&lt;/td&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;65.060000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;21&lt;/th&gt;
+      &lt;td&gt;South America&lt;/td&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;50.880000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;22&lt;/th&gt;
+      &lt;td&gt;South America&lt;/td&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;23.220000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;23&lt;/th&gt;
+      &lt;td&gt;South America&lt;/td&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;15.620000&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;fig, axes = plt.subplots(1, 1, figsize=(15,8))
+sns.lineplot(x=&#39;Year&#39;, y=&#39;Incidence of malaria&#39;,hue = &#39;Continent_Name&#39; , data=df3_2)
+plt.title(&#39;Mean Malaria Incidence for different Continents from 2000 to 2015&#39;)
+plt.legend(loc=&#39;best&#39;, fontsize=10)
+pass
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;output_45_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

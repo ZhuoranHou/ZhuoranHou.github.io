@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects | Zhuoran Hou</title>
+    <link>https://ZhuoranHou.github.io/project/</link>
+      <atom:link href="https://ZhuoranHou.github.io/project/index.xml" rel="self" type="application/rss+xml" />
+    <description>Projects</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 16 Nov 2020 19:51:25 -0500</lastBuildDate>
+    <image>
+      <url>https://ZhuoranHou.github.io/images/icon_hu6b1daddad367c9d793e5607d0ae1cd4a_68195_512x512_fill_lanczos_center_3.png</url>
+      <title>Projects</title>
+      <link>https://ZhuoranHou.github.io/project/</link>
+    </image>
+    
+    <item>
+      <title>Dashboard for COVID-19 in US</title>
+      <link>https://ZhuoranHou.github.io/project/covid-dashboard/</link>
+      <pubDate>Mon, 16 Nov 2020 19:51:25 -0500</pubDate>
+      <guid>https://ZhuoranHou.github.io/project/covid-dashboard/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Deep learning for insects images classification</title>
+      <link>https://ZhuoranHou.github.io/project/deep_learning_for_insects_images/</link>
+      <pubDate>Mon, 09 Nov 2020 09:52:22 -0500</pubDate>
+      <guid>https://ZhuoranHou.github.io/project/deep_learning_for_insects_images/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Dashboard for PhDs dataset</title>
+      <link>https://ZhuoranHou.github.io/project/dashboard/</link>
+      <pubDate>Mon, 05 Oct 2020 23:26:07 -0400</pubDate>
+      <guid>https://ZhuoranHou.github.io/project/dashboard/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Star Wars universe API data analysis</title>
+      <link>https://ZhuoranHou.github.io/project/starwar/</link>
+      <pubDate>Wed, 30 Sep 2020 20:58:11 -0400</pubDate>
+      <guid>https://ZhuoranHou.github.io/project/starwar/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spotify dataset SQLite3 schema</title>
+      <link>https://ZhuoranHou.github.io/project/spotify/</link>
+      <pubDate>Wed, 30 Sep 2020 10:02:58 -0400</pubDate>
+      <guid>https://ZhuoranHou.github.io/project/spotify/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Malaria Datasets Visualizations</title>
+      <link>https://ZhuoranHou.github.io/project/malaria_visual/</link>
+      <pubDate>Tue, 29 Sep 2020 22:09:52 -0400</pubDate>
+      <guid>https://ZhuoranHou.github.io/project/malaria_visual/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Project Euler</title>
+      <link>https://ZhuoranHou.github.io/project/project_euler/</link>
+      <pubDate>Fri, 04 Sep 2020 10:13:56 -0400</pubDate>
+      <guid>https://ZhuoranHou.github.io/project/project_euler/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Personal website</title>
+      <link>https://ZhuoranHou.github.io/project/personal/</link>
+      <pubDate>Thu, 20 Aug 2020 17:05:40 -0400</pubDate>
+      <guid>https://ZhuoranHou.github.io/project/personal/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

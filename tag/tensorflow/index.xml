@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tensorflow | Zhuoran Hou</title>
+    <link>https://ZhuoranHou.github.io/tag/tensorflow/</link>
+      <atom:link href="https://ZhuoranHou.github.io/tag/tensorflow/index.xml" rel="self" type="application/rss+xml" />
+    <description>Tensorflow</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 09 Nov 2020 09:53:04 -0500</lastBuildDate>
+    <image>
+      <url>https://ZhuoranHou.github.io/images/icon_hu6b1daddad367c9d793e5607d0ae1cd4a_68195_512x512_fill_lanczos_center_3.png</url>
+      <title>Tensorflow</title>
+      <link>https://ZhuoranHou.github.io/tag/tensorflow/</link>
+    </image>
+    
+    <item>
+      <title>Deep learning for insects images classification</title>
+      <link>https://ZhuoranHou.github.io/post/deep_learning_for_insects_images/</link>
+      <pubDate>Mon, 09 Nov 2020 09:53:04 -0500</pubDate>
+      <guid>https://ZhuoranHou.github.io/post/deep_learning_for_insects_images/</guid>
+      <description>&lt;h3 id=&#34;how-the-neural-network-classified-the-images&#34;&gt;How the neural network classified the images&lt;/h3&gt;
+&lt;p&gt;Image classification means that we use artificial intelligence (here we use deep learning) to automatically identify objects, people in images, and classify it to different labels.&lt;/p&gt;
+&lt;p&gt;Images are composed of pixels, and these are the features of the images. Colors could be represented as RGB values (a combination of red, green and blue ranging from 0 to 255). When computer load images, it first convert images into arrays.&lt;/p&gt;
+&lt;p&gt;Neural network (especially in deep learning) has multiple layers. The first layer usually takes in all the pixels within an image. And then, different filters are applied to the image.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;cnn1.gif&#34; alt=&#34;gif&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Credit: 
+&lt;a href=&#34;https://commons.wikimedia.org/wiki/File:Convolutional_Neural_Network_NeuralNetworkFilter.gif&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;commons.wikimedia.org&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;We use a &amp;ldquo;convolutional layer&amp;rdquo; to extracting features from images, that where we have the commonly used term  
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Convolutional_neural_network&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Convolutional Neural Network&lt;/a&gt; (CNN) in image classification.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;cnn2.gif&#34; alt=&#34;gif&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Credit: 
+&lt;a href=&#34;https://commons.wikimedia.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;commons.wikimedia.org&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;After we extract information from the convolutional layer, we will apply a pooling layer to the matrix. The main idea of &amp;ldquo;pooling&amp;rdquo; is to drop out redundant information and avoid overfitting.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;Pooling_schematic.gif&#34; alt=&#34;gif&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The final layer before output is usually a dense layer or a fully connected layer, which is a linear operation on the layer’s input vector.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;1.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Credit to:
+&lt;a href=&#34;https://cs231n.github.io/neural-networks-1/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Stanford CS class&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;an-example-based-on-insects-images&#34;&gt;An example based on insects images&lt;/h3&gt;
+&lt;p&gt;Train a deep learning model to classify beetles, cockroaches and dragonflies using these images(
+&lt;a href=&#34;https://www.dropbox.com/s/fn73sj2e6c9rhf6/insects.zip?dl=0%29&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.dropbox.com/s/fn73sj2e6c9rhf6/insects.zip?dl=0)&lt;/a&gt;. Note: Original images from 
+&lt;a href=&#34;https://www.insectimages.org/index.cfm&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.insectimages.org/index.cfm&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;explore-the-dataset&#34;&gt;Explore the dataset&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Importing all necessary libraries 
+import matplotlib.pyplot as plt
+import numpy as np
+import os
+import PIL
+import tensorflow as tf
+
+from tensorflow import keras
+from tensorflow.keras import layers
+from tensorflow.keras.models import Sequential
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import pathlib
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;data_train_dir = pathlib.Path(&#39;insects\\train&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;data_test_dir = pathlib.Path(&#39;insects\\test&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;data_train_dir
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;WindowsPath(&#39;C:/your_path/insects/train&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;image_count = len(list(data_train_dir.glob(&#39;*/*.jpg&#39;)))
+print(image_count)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;1019
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;image_count = len(list(data_test_dir.glob(&#39;*/*.jpg&#39;)))
+print(image_count)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;180
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are 1019 figures for training and 180 figures for testing.&lt;br&gt;
+&lt;br&gt;
+Let&amp;rsquo;s take a look at the a sample figure.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;dragonflies = list(data_train_dir.glob(&#39;dragonflies/*&#39;))
+PIL.Image.open(str(dragonflies[0]))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;output_15_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;load-using-keraspreprocessing&#34;&gt;Load using keras.preprocessing&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;img_width, img_height = 256, 224
+batch_size = 32
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;train_ds = tf.keras.preprocessing.image_dataset_from_directory(
+  data_train_dir,
+  image_size=(img_height, img_width),
+  batch_size=batch_size)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Found 1019 files belonging to 3 classes.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;val_ds = tf.keras.preprocessing.image_dataset_from_directory(
+  data_test_dir,
+  image_size=(img_height, img_width),
+  batch_size=batch_size)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Found 180 files belonging to 3 classes.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;class_names = train_ds.class_names
+print(class_names)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[&#39;beetles&#39;, &#39;cockroach&#39;, &#39;dragonflies&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;for image_batch, labels_batch in train_ds:
+    print(image_batch.shape)
+    print(labels_batch.shape)
+    break
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;(32, 224, 256, 3)
+(32,)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The image_batch is a tensor of the shape (32, 224, 256, 3). This is a batch of 32 images of shape 224x256x3&lt;/p&gt;
+&lt;h3 id=&#34;standardize-the-data&#34;&gt;Standardize the data&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;normalization_layer = layers.experimental.preprocessing.Rescaling(1./255)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;normalized_ds = train_ds.map(lambda x, y: (normalization_layer(x), y))
+image_batch, labels_batch = next(iter(normalized_ds))
+first_image = image_batch[0]
+# Notice the pixels values are now in `[0,1]`.
+print(np.min(first_image), np.max(first_image)) 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;0.0 0.9191305
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;create-the-model&#34;&gt;Create the model&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;num_classes = 3
+
+model = Sequential([
+  layers.experimental.preprocessing.Rescaling(1./255, input_shape=(img_height, img_width, 3)),
+  layers.Conv2D(16, 3, padding=&#39;same&#39;, activation=&#39;relu&#39;),
+  layers.MaxPooling2D(),
+  layers.Conv2D(32, 3, padding=&#39;same&#39;, activation=&#39;relu&#39;),
+  layers.MaxPooling2D(),
+  layers.Conv2D(64, 3, padding=&#39;same&#39;, activation=&#39;relu&#39;),
+  layers.MaxPooling2D(),
+  layers.Flatten(),
+  layers.Dense(128, activation=&#39;relu&#39;),
+  layers.Dense(num_classes)
+])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I choose the optimizers.Adam optimizer and losses.SparseCategoricalCrossentropy loss function.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;model.compile(optimizer=&#39;adam&#39;,
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+              metrics=[&#39;accuracy&#39;])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;model.summary()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Model: &amp;quot;sequential&amp;quot;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+rescaling_1 (Rescaling)      (None, 224, 256, 3)       0         
+_________________________________________________________________
+conv2d (Conv2D)              (None, 224, 256, 16)      448       
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) (None, 112, 128, 16)      0         
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 112, 128, 32)      4640      
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 56, 64, 32)        0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 56, 64, 64)        18496     
+_________________________________________________________________
+max_pooling2d_2 (MaxPooling2 (None, 28, 32, 64)        0         
+_________________________________________________________________
+flatten (Flatten)            (None, 57344)             0         
+_________________________________________________________________
+dense (Dense)                (None, 128)               7340160   
+_________________________________________________________________
+dense_1 (Dense)              (None, 3)                 387       
+=================================================================
+Total params: 7,364,131
+Trainable params: 7,364,131
+Non-trainable params: 0
+_________________________________________________________________
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;train-the-model&#34;&gt;Train the model&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;epochs=10
+history = model.fit(
+  train_ds,
+  validation_data=val_ds,
+  epochs=epochs
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Epoch 1/10
+32/32 [==============================] - 36s 1s/step - loss: 0.9313 - accuracy: 0.6340 - val_loss: 0.6570 - val_accuracy: 0.7667
+Epoch 2/10
+32/32 [==============================] - 37s 1s/step - loss: 0.4232 - accuracy: 0.8469 - val_loss: 0.5344 - val_accuracy: 0.8167
+Epoch 3/10
+32/32 [==============================] - 36s 1s/step - loss: 0.3108 - accuracy: 0.8803 - val_loss: 0.2941 - val_accuracy: 0.8944
+Epoch 4/10
+32/32 [==============================] - 35s 1s/step - loss: 0.1886 - accuracy: 0.9274 - val_loss: 0.1562 - val_accuracy: 0.9389
+Epoch 5/10
+32/32 [==============================] - 36s 1s/step - loss: 0.1031 - accuracy: 0.9617 - val_loss: 0.1012 - val_accuracy: 0.9611
+Epoch 6/10
+32/32 [==============================] - 36s 1s/step - loss: 0.0704 - accuracy: 0.9725 - val_loss: 0.0514 - val_accuracy: 0.9889
+Epoch 7/10
+32/32 [==============================] - 37s 1s/step - loss: 0.0435 - accuracy: 0.9902 - val_loss: 0.0399 - val_accuracy: 0.9944
+Epoch 8/10
+32/32 [==============================] - 38s 1s/step - loss: 0.0319 - accuracy: 0.9892 - val_loss: 0.1055 - val_accuracy: 0.9722
+Epoch 9/10
+32/32 [==============================] - 38s 1s/step - loss: 0.0284 - accuracy: 0.9921 - val_loss: 0.0279 - val_accuracy: 0.9944
+Epoch 10/10
+32/32 [==============================] - 39s 1s/step - loss: 0.0155 - accuracy: 0.9971 - val_loss: 0.0109 - val_accuracy: 0.9944
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;visualize-training-results&#34;&gt;Visualize training results&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;acc = history.history[&#39;accuracy&#39;]
+val_acc = history.history[&#39;val_accuracy&#39;]
+
+loss = history.history[&#39;loss&#39;]
+val_loss = history.history[&#39;val_loss&#39;]
+
+epochs_range = range(epochs)
+
+plt.figure(figsize=(8, 8))
+plt.subplot(1, 2, 1)
+plt.plot(epochs_range, acc, label=&#39;Training Accuracy&#39;)
+plt.plot(epochs_range, val_acc, label=&#39;Validation Accuracy&#39;)
+plt.legend(loc=&#39;lower right&#39;)
+plt.title(&#39;Training and Validation Accuracy&#39;)
+
+plt.subplot(1, 2, 2)
+plt.plot(epochs_range, loss, label=&#39;Training Loss&#39;)
+plt.plot(epochs_range, val_loss, label=&#39;Validation Loss&#39;)
+plt.legend(loc=&#39;upper right&#39;)
+plt.title(&#39;Training and Validation Loss&#39;)
+plt.show()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;output_34_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The model achieved quite high accuracy (&lt;strong&gt;99.44%&lt;/strong&gt;).&lt;/p&gt;
+&lt;h3 id=&#34;save-the-model&#34;&gt;Save the model&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;model.save_weights(&#39;model_saved.h5&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;reference&#34;&gt;Reference&lt;/h3&gt;
+&lt;p&gt;1.https://www.tensorflow.org/tutorials/images/classification &lt;br&gt;
+2.https://stackabuse.com/image-recognition-in-python-with-tensorflow-and-keras/ &lt;br&gt;
+3.https://cs231n.github.io/neural-networks-1/ &lt;br&gt;
+4.http://deeplearning.stanford.edu/tutorial/supervised/Pooling/&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
