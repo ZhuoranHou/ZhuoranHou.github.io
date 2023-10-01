@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Yiman Ren | Zhuoran Hou</title>
+    <link>https://ZhuoranHou.github.io/author/yiman-ren/</link>
+      <atom:link href="https://ZhuoranHou.github.io/author/yiman-ren/index.xml" rel="self" type="application/rss+xml" />
+    <description>Yiman Ren</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 01 Jul 2023 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://ZhuoranHou.github.io/images/icon_hu6b1daddad367c9d793e5607d0ae1cd4a_68195_512x512_fill_lanczos_center_3.png</url>
+      <title>Yiman Ren</title>
+      <link>https://ZhuoranHou.github.io/author/yiman-ren/</link>
+    </image>
+    
+    <item>
+      <title>Estimating Causal Effects using a Multi-task Deep Ensemble</title>
+      <link>https://ZhuoranHou.github.io/publication/jiang-2023-estimating/</link>
+      <pubDate>Sat, 01 Jul 2023 00:00:00 +0000</pubDate>
+      <guid>https://ZhuoranHou.github.io/publication/jiang-2023-estimating/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

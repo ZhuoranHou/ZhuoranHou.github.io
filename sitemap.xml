@@ -2,13 +2,70 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ZhuoranHou.github.io/publication-type/2/</loc>
+    <lastmod>2023-07-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/authors/</loc>
+    <lastmod>2023-07-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/tag/causal-inference/</loc>
+    <lastmod>2023-07-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/author/david-carlson/</loc>
+    <lastmod>2023-07-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/tag/deep-learning/</loc>
+    <lastmod>2023-07-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/publication/jiang-2023-estimating/</loc>
+    <lastmod>2023-07-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/author/keyu-li/</loc>
+    <lastmod>2023-07-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/publication_types/</loc>
+    <lastmod>2023-07-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/publication/</loc>
+    <lastmod>2023-07-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/tags/</loc>
+    <lastmod>2023-07-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/author/yiling-liu/</loc>
+    <lastmod>2023-07-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/author/yiman-ren/</loc>
+    <lastmod>2023-07-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/author/zhuoran-hou/</loc>
+    <lastmod>2023-07-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/</loc>
+    <lastmod>2023-07-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/author/ziyang-jiang/</loc>
+    <lastmod>2023-07-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/author/alejandro-ochoa/</loc>
+    <lastmod>2023-02-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/publication/hou-2023-genetic/</loc>
+    <lastmod>2023-02-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/tag/kinship-matrices/</loc>
+    <lastmod>2023-02-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/tag/linear-mixed-model/</loc>
+    <lastmod>2023-02-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ZhuoranHou.github.io/tag/population-genetics/</loc>
+    <lastmod>2023-02-27T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://ZhuoranHou.github.io/project/covid-dashboard/</loc>
     <lastmod>2020-11-16T19:51:25-05:00</lastmod>
   </url><url>
     <loc>https://ZhuoranHou.github.io/project/</loc>
-    <lastmod>2020-11-16T19:51:25-05:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/</loc>
     <lastmod>2020-11-16T19:51:25-05:00</lastmod>
   </url><url>
     <loc>https://ZhuoranHou.github.io/post/covid-dashboard/</loc>
@@ -25,12 +82,6 @@
   </url><url>
     <loc>https://ZhuoranHou.github.io/tag/streamlit/</loc>
     <lastmod>2020-11-16T19:50:57-05:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/tags/</loc>
-    <lastmod>2020-11-16T19:50:57-05:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/tag/deep-learning/</loc>
-    <lastmod>2020-11-09T09:53:04-05:00</lastmod>
   </url><url>
     <loc>https://ZhuoranHou.github.io/post/deep_learning_for_insects_images/</loc>
     <lastmod>2020-11-09T09:53:04-05:00</lastmod>
@@ -104,14 +155,8 @@
     <loc>https://ZhuoranHou.github.io/project/personal/</loc>
     <lastmod>2020-08-20T17:05:40-04:00</lastmod>
   </url><url>
-    <loc>https://ZhuoranHou.github.io/publication-type/2/</loc>
-    <lastmod>2020-08-20T13:22:16-04:00</lastmod>
-  </url><url>
     <loc>https://ZhuoranHou.github.io/publication/hou-2020-association/</loc>
     <lastmod>2020-08-20T13:22:15-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/authors/</loc>
-    <lastmod>2020-08-20T13:22:16-04:00</lastmod>
   </url><url>
     <loc>https://ZhuoranHou.github.io/tag/cognitive-decline/</loc>
     <lastmod>2020-08-20T13:22:15-04:00</lastmod>
@@ -125,73 +170,16 @@
     <loc>https://ZhuoranHou.github.io/author/judy-zhong/</loc>
     <lastmod>2020-08-20T13:22:15-04:00</lastmod>
   </url><url>
-    <loc>https://ZhuoranHou.github.io/tag/linear-mixed-model/</loc>
-    <lastmod>2020-08-20T13:22:15-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/publication_types/</loc>
-    <lastmod>2020-08-20T13:22:16-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/publication/</loc>
-    <lastmod>2020-08-20T13:22:16-04:00</lastmod>
-  </url><url>
     <loc>https://ZhuoranHou.github.io/author/xiaofeng-wang/</loc>
     <lastmod>2020-08-20T13:22:15-04:00</lastmod>
   </url><url>
     <loc>https://ZhuoranHou.github.io/author/yuchen-wang/</loc>
     <lastmod>2020-08-20T13:22:15-04:00</lastmod>
   </url><url>
-    <loc>https://ZhuoranHou.github.io/author/zhuoran-hou/</loc>
-    <lastmod>2020-08-20T13:22:16-04:00</lastmod>
-  </url><url>
     <loc>https://ZhuoranHou.github.io/publication/hou-2019-association/</loc>
     <lastmod>2020-08-20T13:22:15-04:00</lastmod>
   </url><url>
     <loc>https://ZhuoranHou.github.io/tag/cognition-impairment/</loc>
-    <lastmod>2020-08-20T13:22:15-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/tag/animal-model/</loc>
-    <lastmod>2020-08-20T13:22:15-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/author/chi-feng/</loc>
-    <lastmod>2020-08-20T13:22:15-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/publication/wang-2017-poly/</loc>
-    <lastmod>2020-08-20T13:22:15-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/author/guohai-li/</loc>
-    <lastmod>2020-08-20T13:22:15-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/author/hao-peng/</loc>
-    <lastmod>2020-08-20T13:22:15-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/author/jia-wang/</loc>
-    <lastmod>2020-08-20T13:22:15-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/author/jiadan-xu/</loc>
-    <lastmod>2020-08-20T13:22:15-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/author/jiaxin-chen/</loc>
-    <lastmod>2020-08-20T13:22:15-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/author/lei-wang/</loc>
-    <lastmod>2020-08-20T13:22:15-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/tag/schizophrenia/</loc>
-    <lastmod>2020-08-20T13:22:15-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/author/weining-zhang/</loc>
-    <lastmod>2020-08-20T13:22:15-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/author/wenxin-wang/</loc>
-    <lastmod>2020-08-20T13:22:15-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/author/xu-xiao/</loc>
-    <lastmod>2020-08-20T13:22:15-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/author/yang-jiang/</loc>
-    <lastmod>2020-08-20T13:22:15-04:00</lastmod>
-  </url><url>
-    <loc>https://ZhuoranHou.github.io/author/yucong-wang/</loc>
     <lastmod>2020-08-20T13:22:15-04:00</lastmod>
   </url><url>
     <loc>https://ZhuoranHou.github.io/publication/hou-2016-comparative/</loc>

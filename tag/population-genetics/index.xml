@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>population genetics | Zhuoran Hou</title>
+    <link>https://ZhuoranHou.github.io/tag/population-genetics/</link>
+      <atom:link href="https://ZhuoranHou.github.io/tag/population-genetics/index.xml" rel="self" type="application/rss+xml" />
+    <description>population genetics</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 27 Feb 2023 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://ZhuoranHou.github.io/images/icon_hu6b1daddad367c9d793e5607d0ae1cd4a_68195_512x512_fill_lanczos_center_3.png</url>
+      <title>population genetics</title>
+      <link>https://ZhuoranHou.github.io/tag/population-genetics/</link>
+    </image>
+    
+    <item>
+      <title>Genetic association models are robust to common population kinship estimation biases</title>
+      <link>https://ZhuoranHou.github.io/publication/hou-2023-genetic/</link>
+      <pubDate>Mon, 27 Feb 2023 00:00:00 +0000</pubDate>
+      <guid>https://ZhuoranHou.github.io/publication/hou-2023-genetic/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
